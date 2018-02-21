@@ -18,68 +18,20 @@ class Inventory(object):
 
     def __init__(self, params=None):
         if params is None:
-            self.__count = None
-            self.__create_at = None
-            self.__item_name = None
             self.__inventory_id = None
             self.__user_id = None
+            self.__item_name = None
+            self.__count = None
+            self.__create_at = None
             self.__update_at = None
         else:
-            self.set_count(params['count'] if 'count' in params.keys() else None)
-            self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
-            self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
             self.set_inventory_id(params['inventoryId'] if 'inventoryId' in params.keys() else None)
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
+            self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
+            self.set_count(params['count'] if 'count' in params.keys() else None)
+            self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
             self.set_update_at(params['updateAt'] if 'updateAt' in params.keys() else None)
 
-
-    def get_count(self):
-        """
-        所持数量を取得
-        :return: 所持数量
-        :rtype: int
-        """
-        return self.__count
-
-    def set_count(self, count):
-        """
-        所持数量を設定
-        :param count: 所持数量
-        :type count: int
-        """
-        self.__count = count
-
-    def get_create_at(self):
-        """
-        作成日時(エポック秒)を取得
-        :return: 作成日時(エポック秒)
-        :rtype: int
-        """
-        return self.__create_at
-
-    def set_create_at(self, create_at):
-        """
-        作成日時(エポック秒)を設定
-        :param create_at: 作成日時(エポック秒)
-        :type create_at: int
-        """
-        self.__create_at = create_at
-
-    def get_item_name(self):
-        """
-        消費型アイテム名を取得
-        :return: 消費型アイテム名
-        :rtype: unicode
-        """
-        return self.__item_name
-
-    def set_item_name(self, item_name):
-        """
-        消費型アイテム名を設定
-        :param item_name: 消費型アイテム名
-        :type item_name: unicode
-        """
-        self.__item_name = item_name
 
     def get_inventory_id(self):
         """
@@ -113,6 +65,54 @@ class Inventory(object):
         """
         self.__user_id = user_id
 
+    def get_item_name(self):
+        """
+        消費型アイテム名を取得
+        :return: 消費型アイテム名
+        :rtype: unicode
+        """
+        return self.__item_name
+
+    def set_item_name(self, item_name):
+        """
+        消費型アイテム名を設定
+        :param item_name: 消費型アイテム名
+        :type item_name: unicode
+        """
+        self.__item_name = item_name
+
+    def get_count(self):
+        """
+        所持数量を取得
+        :return: 所持数量
+        :rtype: int
+        """
+        return self.__count
+
+    def set_count(self, count):
+        """
+        所持数量を設定
+        :param count: 所持数量
+        :type count: int
+        """
+        self.__count = count
+
+    def get_create_at(self):
+        """
+        作成日時(エポック秒)を取得
+        :return: 作成日時(エポック秒)
+        :rtype: int
+        """
+        return self.__create_at
+
+    def set_create_at(self, create_at):
+        """
+        作成日時(エポック秒)を設定
+        :param create_at: 作成日時(エポック秒)
+        :type create_at: int
+        """
+        self.__create_at = create_at
+
     def get_update_at(self):
         """
         最終更新日時(エポック秒)を取得
@@ -131,10 +131,10 @@ class Inventory(object):
 
     def to_dict(self):
         return { 
-            "count": self.__count,
-            "createAt": self.__create_at,
-            "itemName": self.__item_name,
             "inventoryId": self.__inventory_id,
             "userId": self.__user_id,
+            "itemName": self.__item_name,
+            "count": self.__count,
+            "createAt": self.__create_at,
             "updateAt": self.__update_at,
         }

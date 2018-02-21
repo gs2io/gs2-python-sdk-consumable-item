@@ -31,40 +31,21 @@ class CreateItemPoolRequest(Gs2BasicRequest):
         """
         super(CreateItemPoolRequest, self).__init__(params)
         if params is None:
-            self.__service_class = None
             self.__name = None
             self.__description = None
+            self.__service_class = None
+            self.__acquisition_inventory_trigger_script = None
+            self.__acquisition_inventory_done_trigger_script = None
+            self.__consume_inventory_trigger_script = None
+            self.__consume_inventory_done_trigger_script = None
         else:
-            self.set_service_class(params['serviceClass'] if 'serviceClass' in params.keys() else None)
             self.set_name(params['name'] if 'name' in params.keys() else None)
             self.set_description(params['description'] if 'description' in params.keys() else None)
-
-    def get_service_class(self):
-        """
-        サービスクラスを取得
-        :return: サービスクラス
-        :rtype: unicode
-        """
-        return self.__service_class
-
-    def set_service_class(self, service_class):
-        """
-        サービスクラスを設定
-        :param service_class: サービスクラス
-        :type service_class: unicode
-        """
-        self.__service_class = service_class
-
-    def with_service_class(self, service_class):
-        """
-        サービスクラスを設定
-        :param service_class: サービスクラス
-        :type service_class: unicode
-        :return: this
-        :rtype: CreateItemPoolRequest
-        """
-        self.set_service_class(service_class)
-        return self
+            self.set_service_class(params['serviceClass'] if 'serviceClass' in params.keys() else None)
+            self.set_acquisition_inventory_trigger_script(params['acquisitionInventoryTriggerScript'] if 'acquisitionInventoryTriggerScript' in params.keys() else None)
+            self.set_acquisition_inventory_done_trigger_script(params['acquisitionInventoryDoneTriggerScript'] if 'acquisitionInventoryDoneTriggerScript' in params.keys() else None)
+            self.set_consume_inventory_trigger_script(params['consumeInventoryTriggerScript'] if 'consumeInventoryTriggerScript' in params.keys() else None)
+            self.set_consume_inventory_done_trigger_script(params['consumeInventoryDoneTriggerScript'] if 'consumeInventoryDoneTriggerScript' in params.keys() else None)
 
     def get_name(self):
         """
@@ -118,4 +99,139 @@ class CreateItemPoolRequest(Gs2BasicRequest):
         :rtype: CreateItemPoolRequest
         """
         self.set_description(description)
+        return self
+
+    def get_service_class(self):
+        """
+        サービスクラスを取得
+        :return: サービスクラス
+        :rtype: unicode
+        """
+        return self.__service_class
+
+    def set_service_class(self, service_class):
+        """
+        サービスクラスを設定
+        :param service_class: サービスクラス
+        :type service_class: unicode
+        """
+        self.__service_class = service_class
+
+    def with_service_class(self, service_class):
+        """
+        サービスクラスを設定
+        :param service_class: サービスクラス
+        :type service_class: unicode
+        :return: this
+        :rtype: CreateItemPoolRequest
+        """
+        self.set_service_class(service_class)
+        return self
+
+    def get_acquisition_inventory_trigger_script(self):
+        """
+        アイテム入手時 に実行されるGS2-Scriptを取得
+        :return: アイテム入手時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__acquisition_inventory_trigger_script
+
+    def set_acquisition_inventory_trigger_script(self, acquisition_inventory_trigger_script):
+        """
+        アイテム入手時 に実行されるGS2-Scriptを設定
+        :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
+        :type acquisition_inventory_trigger_script: unicode
+        """
+        self.__acquisition_inventory_trigger_script = acquisition_inventory_trigger_script
+
+    def with_acquisition_inventory_trigger_script(self, acquisition_inventory_trigger_script):
+        """
+        アイテム入手時 に実行されるGS2-Scriptを設定
+        :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
+        :type acquisition_inventory_trigger_script: unicode
+        :return: this
+        :rtype: CreateItemPoolRequest
+        """
+        self.set_acquisition_inventory_trigger_script(acquisition_inventory_trigger_script)
+        return self
+
+    def get_acquisition_inventory_done_trigger_script(self):
+        """
+        アイテム入手完了時 に実行されるGS2-Scriptを取得
+        :return: アイテム入手完了時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__acquisition_inventory_done_trigger_script
+
+    def set_acquisition_inventory_done_trigger_script(self, acquisition_inventory_done_trigger_script):
+        """
+        アイテム入手完了時 に実行されるGS2-Scriptを設定
+        :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
+        :type acquisition_inventory_done_trigger_script: unicode
+        """
+        self.__acquisition_inventory_done_trigger_script = acquisition_inventory_done_trigger_script
+
+    def with_acquisition_inventory_done_trigger_script(self, acquisition_inventory_done_trigger_script):
+        """
+        アイテム入手完了時 に実行されるGS2-Scriptを設定
+        :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
+        :type acquisition_inventory_done_trigger_script: unicode
+        :return: this
+        :rtype: CreateItemPoolRequest
+        """
+        self.set_acquisition_inventory_done_trigger_script(acquisition_inventory_done_trigger_script)
+        return self
+
+    def get_consume_inventory_trigger_script(self):
+        """
+        アイテム消費時 に実行されるGS2-Scriptを取得
+        :return: アイテム消費時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__consume_inventory_trigger_script
+
+    def set_consume_inventory_trigger_script(self, consume_inventory_trigger_script):
+        """
+        アイテム消費時 に実行されるGS2-Scriptを設定
+        :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
+        :type consume_inventory_trigger_script: unicode
+        """
+        self.__consume_inventory_trigger_script = consume_inventory_trigger_script
+
+    def with_consume_inventory_trigger_script(self, consume_inventory_trigger_script):
+        """
+        アイテム消費時 に実行されるGS2-Scriptを設定
+        :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
+        :type consume_inventory_trigger_script: unicode
+        :return: this
+        :rtype: CreateItemPoolRequest
+        """
+        self.set_consume_inventory_trigger_script(consume_inventory_trigger_script)
+        return self
+
+    def get_consume_inventory_done_trigger_script(self):
+        """
+        アイテム消費完了時 に実行されるGS2-Scriptを取得
+        :return: アイテム消費完了時 に実行されるGS2-Script
+        :rtype: unicode
+        """
+        return self.__consume_inventory_done_trigger_script
+
+    def set_consume_inventory_done_trigger_script(self, consume_inventory_done_trigger_script):
+        """
+        アイテム消費完了時 に実行されるGS2-Scriptを設定
+        :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
+        :type consume_inventory_done_trigger_script: unicode
+        """
+        self.__consume_inventory_done_trigger_script = consume_inventory_done_trigger_script
+
+    def with_consume_inventory_done_trigger_script(self, consume_inventory_done_trigger_script):
+        """
+        アイテム消費完了時 に実行されるGS2-Scriptを設定
+        :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
+        :type consume_inventory_done_trigger_script: unicode
+        :return: this
+        :rtype: CreateItemPoolRequest
+        """
+        self.set_consume_inventory_done_trigger_script(consume_inventory_done_trigger_script)
         return self
