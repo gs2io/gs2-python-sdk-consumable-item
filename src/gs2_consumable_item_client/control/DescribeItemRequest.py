@@ -32,11 +32,15 @@ class DescribeItemRequest(Gs2BasicRequest):
         super(DescribeItemRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-            self.__page_token = None
-            self.__limit = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
+        if params is None:
+            self.__page_token = None
+        else:
             self.set_page_token(params['pageToken'] if 'pageToken' in params.keys() else None)
+        if params is None:
+            self.__limit = None
+        else:
             self.set_limit(params['limit'] if 'limit' in params.keys() else None)
 
     def get_item_pool_name(self):
@@ -53,6 +57,8 @@ class DescribeItemRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
+        if not isinstance(item_pool_name, unicode):
+            raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
     def with_item_pool_name(self, item_pool_name):
@@ -80,6 +86,8 @@ class DescribeItemRequest(Gs2BasicRequest):
         :param page_token: データの取得を開始する位置を指定するトークン
         :type page_token: unicode
         """
+        if not isinstance(page_token, unicode):
+            raise TypeError(type(page_token))
         self.__page_token = page_token
 
     def with_page_token(self, page_token):
@@ -107,6 +115,8 @@ class DescribeItemRequest(Gs2BasicRequest):
         :param limit: データの取得件数
         :type limit: int
         """
+        if not isinstance(limit, int):
+            raise TypeError(type(limit))
         self.__limit = limit
 
     def with_limit(self, limit):

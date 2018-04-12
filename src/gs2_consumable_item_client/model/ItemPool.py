@@ -14,6 +14,7 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
+
 class ItemPool(object):
 
     def __init__(self, params=None):
@@ -41,7 +42,6 @@ class ItemPool(object):
             self.set_consume_inventory_done_trigger_script(params['consumeInventoryDoneTriggerScript'] if 'consumeInventoryDoneTriggerScript' in params.keys() else None)
             self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
             self.set_update_at(params['updateAt'] if 'updateAt' in params.keys() else None)
-
 
     def get_item_pool_id(self):
         """
@@ -220,7 +220,7 @@ class ItemPool(object):
         self.__update_at = update_at
 
     def to_dict(self):
-        return { 
+        return {
             "itemPoolId": self.__item_pool_id,
             "ownerId": self.__owner_id,
             "name": self.__name,

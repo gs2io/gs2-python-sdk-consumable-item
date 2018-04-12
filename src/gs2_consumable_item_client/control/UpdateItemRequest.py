@@ -32,19 +32,31 @@ class UpdateItemRequest(Gs2BasicRequest):
         super(UpdateItemRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-            self.__item_name = None
-            self.__max = None
-            self.__acquisition_inventory_trigger_script = None
-            self.__acquisition_inventory_done_trigger_script = None
-            self.__consume_inventory_trigger_script = None
-            self.__consume_inventory_done_trigger_script = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
+        if params is None:
+            self.__item_name = None
+        else:
             self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
+        if params is None:
+            self.__max = None
+        else:
             self.set_max(params['max'] if 'max' in params.keys() else None)
+        if params is None:
+            self.__acquisition_inventory_trigger_script = None
+        else:
             self.set_acquisition_inventory_trigger_script(params['acquisitionInventoryTriggerScript'] if 'acquisitionInventoryTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__acquisition_inventory_done_trigger_script = None
+        else:
             self.set_acquisition_inventory_done_trigger_script(params['acquisitionInventoryDoneTriggerScript'] if 'acquisitionInventoryDoneTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__consume_inventory_trigger_script = None
+        else:
             self.set_consume_inventory_trigger_script(params['consumeInventoryTriggerScript'] if 'consumeInventoryTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__consume_inventory_done_trigger_script = None
+        else:
             self.set_consume_inventory_done_trigger_script(params['consumeInventoryDoneTriggerScript'] if 'consumeInventoryDoneTriggerScript' in params.keys() else None)
 
     def get_item_pool_name(self):
@@ -61,6 +73,8 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
+        if not isinstance(item_pool_name, unicode):
+            raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
     def with_item_pool_name(self, item_pool_name):
@@ -88,6 +102,8 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         """
+        if not isinstance(item_name, unicode):
+            raise TypeError(type(item_name))
         self.__item_name = item_name
 
     def with_item_name(self, item_name):
@@ -115,6 +131,8 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param max: 最大所持数。
         :type max: int
         """
+        if not isinstance(max, int):
+            raise TypeError(type(max))
         self.__max = max
 
     def with_max(self, max):
@@ -142,6 +160,8 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
         :type acquisition_inventory_trigger_script: unicode
         """
+        if not isinstance(acquisition_inventory_trigger_script, unicode):
+            raise TypeError(type(acquisition_inventory_trigger_script))
         self.__acquisition_inventory_trigger_script = acquisition_inventory_trigger_script
 
     def with_acquisition_inventory_trigger_script(self, acquisition_inventory_trigger_script):
@@ -169,6 +189,8 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
         :type acquisition_inventory_done_trigger_script: unicode
         """
+        if not isinstance(acquisition_inventory_done_trigger_script, unicode):
+            raise TypeError(type(acquisition_inventory_done_trigger_script))
         self.__acquisition_inventory_done_trigger_script = acquisition_inventory_done_trigger_script
 
     def with_acquisition_inventory_done_trigger_script(self, acquisition_inventory_done_trigger_script):
@@ -196,6 +218,8 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
         :type consume_inventory_trigger_script: unicode
         """
+        if not isinstance(consume_inventory_trigger_script, unicode):
+            raise TypeError(type(consume_inventory_trigger_script))
         self.__consume_inventory_trigger_script = consume_inventory_trigger_script
 
     def with_consume_inventory_trigger_script(self, consume_inventory_trigger_script):
@@ -223,6 +247,8 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
         :type consume_inventory_done_trigger_script: unicode
         """
+        if not isinstance(consume_inventory_done_trigger_script, unicode):
+            raise TypeError(type(consume_inventory_done_trigger_script))
         self.__consume_inventory_done_trigger_script = consume_inventory_done_trigger_script
 
     def with_consume_inventory_done_trigger_script(self, consume_inventory_done_trigger_script):

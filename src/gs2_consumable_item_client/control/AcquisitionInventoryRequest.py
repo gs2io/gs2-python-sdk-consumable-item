@@ -32,13 +32,19 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         super(AcquisitionInventoryRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-            self.__item_name = None
-            self.__user_id = None
-            self.__count = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
+        if params is None:
+            self.__item_name = None
+        else:
             self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
+        if params is None:
+            self.__user_id = None
+        else:
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
+        if params is None:
+            self.__count = None
+        else:
             self.set_count(params['count'] if 'count' in params.keys() else None)
 
     def get_item_pool_name(self):
@@ -55,6 +61,8 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
+        if not isinstance(item_pool_name, unicode):
+            raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
     def with_item_pool_name(self, item_pool_name):
@@ -82,6 +90,8 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         """
+        if not isinstance(item_name, unicode):
+            raise TypeError(type(item_name))
         self.__item_name = item_name
 
     def with_item_name(self, item_name):
@@ -109,6 +119,8 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param user_id: ユーザID
         :type user_id: unicode
         """
+        if not isinstance(user_id, unicode):
+            raise TypeError(type(user_id))
         self.__user_id = user_id
 
     def with_user_id(self, user_id):
@@ -136,6 +148,8 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param count: 入手数量
         :type count: int
         """
+        if not isinstance(count, int):
+            raise TypeError(type(count))
         self.__count = count
 
     def with_count(self, count):

@@ -32,19 +32,31 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         super(UpdateItemPoolRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-            self.__description = None
-            self.__service_class = None
-            self.__acquisition_inventory_trigger_script = None
-            self.__acquisition_inventory_done_trigger_script = None
-            self.__consume_inventory_trigger_script = None
-            self.__consume_inventory_done_trigger_script = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
+        if params is None:
+            self.__description = None
+        else:
             self.set_description(params['description'] if 'description' in params.keys() else None)
+        if params is None:
+            self.__service_class = None
+        else:
             self.set_service_class(params['serviceClass'] if 'serviceClass' in params.keys() else None)
+        if params is None:
+            self.__acquisition_inventory_trigger_script = None
+        else:
             self.set_acquisition_inventory_trigger_script(params['acquisitionInventoryTriggerScript'] if 'acquisitionInventoryTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__acquisition_inventory_done_trigger_script = None
+        else:
             self.set_acquisition_inventory_done_trigger_script(params['acquisitionInventoryDoneTriggerScript'] if 'acquisitionInventoryDoneTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__consume_inventory_trigger_script = None
+        else:
             self.set_consume_inventory_trigger_script(params['consumeInventoryTriggerScript'] if 'consumeInventoryTriggerScript' in params.keys() else None)
+        if params is None:
+            self.__consume_inventory_done_trigger_script = None
+        else:
             self.set_consume_inventory_done_trigger_script(params['consumeInventoryDoneTriggerScript'] if 'consumeInventoryDoneTriggerScript' in params.keys() else None)
 
     def get_item_pool_name(self):
@@ -61,6 +73,8 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         :param item_pool_name: 更新する消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
+        if not isinstance(item_pool_name, unicode):
+            raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
     def with_item_pool_name(self, item_pool_name):
@@ -88,6 +102,8 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         :param description: 説明文(1024文字以内)
         :type description: unicode
         """
+        if not isinstance(description, unicode):
+            raise TypeError(type(description))
         self.__description = description
 
     def with_description(self, description):
@@ -115,6 +131,8 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         :param service_class: サービスクラス
         :type service_class: unicode
         """
+        if not isinstance(service_class, unicode):
+            raise TypeError(type(service_class))
         self.__service_class = service_class
 
     def with_service_class(self, service_class):
@@ -142,6 +160,8 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
         :type acquisition_inventory_trigger_script: unicode
         """
+        if not isinstance(acquisition_inventory_trigger_script, unicode):
+            raise TypeError(type(acquisition_inventory_trigger_script))
         self.__acquisition_inventory_trigger_script = acquisition_inventory_trigger_script
 
     def with_acquisition_inventory_trigger_script(self, acquisition_inventory_trigger_script):
@@ -169,6 +189,8 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
         :type acquisition_inventory_done_trigger_script: unicode
         """
+        if not isinstance(acquisition_inventory_done_trigger_script, unicode):
+            raise TypeError(type(acquisition_inventory_done_trigger_script))
         self.__acquisition_inventory_done_trigger_script = acquisition_inventory_done_trigger_script
 
     def with_acquisition_inventory_done_trigger_script(self, acquisition_inventory_done_trigger_script):
@@ -196,6 +218,8 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
         :type consume_inventory_trigger_script: unicode
         """
+        if not isinstance(consume_inventory_trigger_script, unicode):
+            raise TypeError(type(consume_inventory_trigger_script))
         self.__consume_inventory_trigger_script = consume_inventory_trigger_script
 
     def with_consume_inventory_trigger_script(self, consume_inventory_trigger_script):
@@ -223,6 +247,8 @@ class UpdateItemPoolRequest(Gs2BasicRequest):
         :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
         :type consume_inventory_done_trigger_script: unicode
         """
+        if not isinstance(consume_inventory_done_trigger_script, unicode):
+            raise TypeError(type(consume_inventory_done_trigger_script))
         self.__consume_inventory_done_trigger_script = consume_inventory_done_trigger_script
 
     def with_consume_inventory_done_trigger_script(self, consume_inventory_done_trigger_script):
