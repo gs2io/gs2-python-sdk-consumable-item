@@ -53,7 +53,7 @@ class AcquisitionMyInventoryRequest(Gs2UserRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
-        if not isinstance(item_pool_name, unicode):
+        if item_pool_name and not isinstance(item_pool_name, unicode):
             raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
@@ -82,7 +82,7 @@ class AcquisitionMyInventoryRequest(Gs2UserRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         """
-        if not isinstance(item_name, unicode):
+        if item_name and not isinstance(item_name, unicode):
             raise TypeError(type(item_name))
         self.__item_name = item_name
 
@@ -111,7 +111,7 @@ class AcquisitionMyInventoryRequest(Gs2UserRequest):
         :param count: 入手数量
         :type count: int
         """
-        if not isinstance(count, int):
+        if count and not isinstance(count, int):
             raise TypeError(type(count))
         self.__count = count
 
