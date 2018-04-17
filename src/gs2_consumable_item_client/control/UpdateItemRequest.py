@@ -73,7 +73,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
-        if item_pool_name and not isinstance(item_pool_name, unicode):
+        if item_pool_name and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
             raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
@@ -102,7 +102,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         """
-        if item_name and not isinstance(item_name, unicode):
+        if item_name and not (isinstance(item_name, str) or isinstance(item_name, unicode)):
             raise TypeError(type(item_name))
         self.__item_name = item_name
 
@@ -160,7 +160,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
         :type acquisition_inventory_trigger_script: unicode
         """
-        if acquisition_inventory_trigger_script and not isinstance(acquisition_inventory_trigger_script, unicode):
+        if acquisition_inventory_trigger_script and not (isinstance(acquisition_inventory_trigger_script, str) or isinstance(acquisition_inventory_trigger_script, unicode)):
             raise TypeError(type(acquisition_inventory_trigger_script))
         self.__acquisition_inventory_trigger_script = acquisition_inventory_trigger_script
 
@@ -189,7 +189,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
         :type acquisition_inventory_done_trigger_script: unicode
         """
-        if acquisition_inventory_done_trigger_script and not isinstance(acquisition_inventory_done_trigger_script, unicode):
+        if acquisition_inventory_done_trigger_script and not (isinstance(acquisition_inventory_done_trigger_script, str) or isinstance(acquisition_inventory_done_trigger_script, unicode)):
             raise TypeError(type(acquisition_inventory_done_trigger_script))
         self.__acquisition_inventory_done_trigger_script = acquisition_inventory_done_trigger_script
 
@@ -218,7 +218,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
         :type consume_inventory_trigger_script: unicode
         """
-        if consume_inventory_trigger_script and not isinstance(consume_inventory_trigger_script, unicode):
+        if consume_inventory_trigger_script and not (isinstance(consume_inventory_trigger_script, str) or isinstance(consume_inventory_trigger_script, unicode)):
             raise TypeError(type(consume_inventory_trigger_script))
         self.__consume_inventory_trigger_script = consume_inventory_trigger_script
 
@@ -247,7 +247,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
         :type consume_inventory_done_trigger_script: unicode
         """
-        if consume_inventory_done_trigger_script and not isinstance(consume_inventory_done_trigger_script, unicode):
+        if consume_inventory_done_trigger_script and not (isinstance(consume_inventory_done_trigger_script, str) or isinstance(consume_inventory_done_trigger_script, unicode)):
             raise TypeError(type(consume_inventory_done_trigger_script))
         self.__consume_inventory_done_trigger_script = consume_inventory_done_trigger_script
 

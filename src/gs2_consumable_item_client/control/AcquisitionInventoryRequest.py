@@ -61,7 +61,7 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
-        if item_pool_name and not isinstance(item_pool_name, unicode):
+        if item_pool_name and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
             raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
@@ -90,7 +90,7 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         """
-        if item_name and not isinstance(item_name, unicode):
+        if item_name and not (isinstance(item_name, str) or isinstance(item_name, unicode)):
             raise TypeError(type(item_name))
         self.__item_name = item_name
 
@@ -119,7 +119,7 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param user_id: ユーザID
         :type user_id: unicode
         """
-        if user_id and not isinstance(user_id, unicode):
+        if user_id and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
             raise TypeError(type(user_id))
         self.__user_id = user_id
 
