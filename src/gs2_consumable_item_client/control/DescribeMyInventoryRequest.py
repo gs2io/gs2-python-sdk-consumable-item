@@ -53,7 +53,7 @@ class DescribeMyInventoryRequest(Gs2UserRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
-        if _item_pool_name and not (isinstance(_item_pool_name, str) or isinstance(_item_pool_name, unicode)):
+        if item_pool_name and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
             raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
@@ -82,7 +82,7 @@ class DescribeMyInventoryRequest(Gs2UserRequest):
         :param page_token: データの取得を開始する位置を指定するトークン
         :type page_token: unicode
         """
-        if _page_token and not (isinstance(_page_token, str) or isinstance(_page_token, unicode)):
+        if page_token and not (isinstance(page_token, str) or isinstance(page_token, unicode)):
             raise TypeError(type(page_token))
         self.__page_token = page_token
 
@@ -111,7 +111,7 @@ class DescribeMyInventoryRequest(Gs2UserRequest):
         :param limit: データの取得件数
         :type limit: int
         """
-        if _limit and not isinstance(_limit, int):
+        if limit and not isinstance(limit, int):
             raise TypeError(type(limit))
         self.__limit = limit
 
