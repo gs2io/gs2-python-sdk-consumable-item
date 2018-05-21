@@ -16,6 +16,7 @@
 
 from gs2_core_client.Gs2Constant import Gs2Constant
 from gs2_core_client.AbstractGs2Client import AbstractGs2Client
+from aws_sdk_for_serverless.common import url_encoder
 
 
 class Gs2ConsumableItemClient(AbstractGs2Client):
@@ -58,7 +59,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         from gs2_consumable_item_client.control.AcquisitionInventoryRequest import AcquisitionInventoryRequest
         from gs2_consumable_item_client.control.AcquisitionInventoryResult import AcquisitionInventoryResult
         return AcquisitionInventoryResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
             component=AcquisitionInventoryRequest.Constant.MODULE,
             target_function=AcquisitionInventoryRequest.Constant.FUNCTION,
@@ -93,7 +94,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         from gs2_consumable_item_client.control.AcquisitionMyInventoryRequest import AcquisitionMyInventoryRequest
         from gs2_consumable_item_client.control.AcquisitionMyInventoryResult import AcquisitionMyInventoryResult
         return AcquisitionMyInventoryResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/my",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/my",
             service=self.ENDPOINT,
             component=AcquisitionMyInventoryRequest.Constant.MODULE,
             target_function=AcquisitionMyInventoryRequest.Constant.FUNCTION,
@@ -120,7 +121,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         from gs2_consumable_item_client.control.ConsumeInventoryRequest import ConsumeInventoryRequest
         from gs2_consumable_item_client.control.ConsumeInventoryResult import ConsumeInventoryResult
         return ConsumeInventoryResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
             component=ConsumeInventoryRequest.Constant.MODULE,
             target_function=ConsumeInventoryRequest.Constant.FUNCTION,
@@ -148,7 +149,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         from gs2_consumable_item_client.control.ConsumeMyInventoryRequest import ConsumeMyInventoryRequest
         from gs2_consumable_item_client.control.ConsumeMyInventoryResult import ConsumeMyInventoryResult
         return ConsumeMyInventoryResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/my",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/my",
             service=self.ENDPOINT,
             component=ConsumeMyInventoryRequest.Constant.MODULE,
             target_function=ConsumeMyInventoryRequest.Constant.FUNCTION,
@@ -170,7 +171,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DeleteInventoryRequest import DeleteInventoryRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
             component=DeleteInventoryRequest.Constant.MODULE,
             target_function=DeleteInventoryRequest.Constant.FUNCTION,
@@ -198,7 +199,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.DescribeInventoryResult import DescribeInventoryResult
         return DescribeInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
             component=DescribeInventoryRequest.Constant.MODULE,
             target_function=DescribeInventoryRequest.Constant.FUNCTION,
@@ -227,7 +228,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.DescribeMyInventoryResult import DescribeMyInventoryResult
         return DescribeMyInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/my",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/my",
             service=self.ENDPOINT,
             component=DescribeMyInventoryRequest.Constant.MODULE,
             target_function=DescribeMyInventoryRequest.Constant.FUNCTION,
@@ -253,7 +254,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.GetInventoryResult import GetInventoryResult
         return GetInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
             component=GetInventoryRequest.Constant.MODULE,
             target_function=GetInventoryRequest.Constant.FUNCTION,
@@ -280,7 +281,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.GetMyInventoryResult import GetMyInventoryResult
         return GetMyInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/my",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/my",
             service=self.ENDPOINT,
             component=GetMyInventoryRequest.Constant.MODULE,
             target_function=GetMyInventoryRequest.Constant.FUNCTION,
@@ -341,7 +342,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DeleteItemPoolRequest import DeleteItemPoolRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "",
             service=self.ENDPOINT,
             component=DeleteItemPoolRequest.Constant.MODULE,
             target_function=DeleteItemPoolRequest.Constant.FUNCTION,
@@ -421,7 +422,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.GetItemPoolResult import GetItemPoolResult
         return GetItemPoolResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "",
             service=self.ENDPOINT,
             component=GetItemPoolRequest.Constant.MODULE,
             target_function=GetItemPoolRequest.Constant.FUNCTION,
@@ -447,7 +448,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.GetItemPoolStatusResult import GetItemPoolStatusResult
         return GetItemPoolStatusResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/status",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/status",
             service=self.ENDPOINT,
             component=GetItemPoolStatusRequest.Constant.MODULE,
             target_function=GetItemPoolStatusRequest.Constant.FUNCTION,
@@ -484,7 +485,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         from gs2_consumable_item_client.control.UpdateItemPoolRequest import UpdateItemPoolRequest
         from gs2_consumable_item_client.control.UpdateItemPoolResult import UpdateItemPoolResult
         return UpdateItemPoolResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "",
             service=self.ENDPOINT,
             component=UpdateItemPoolRequest.Constant.MODULE,
             target_function=UpdateItemPoolRequest.Constant.FUNCTION,
@@ -521,7 +522,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         from gs2_consumable_item_client.control.CreateItemRequest import CreateItemRequest
         from gs2_consumable_item_client.control.CreateItemResult import CreateItemResult
         return CreateItemResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item",
             service=self.ENDPOINT,
             component=CreateItemRequest.Constant.MODULE,
             target_function=CreateItemRequest.Constant.FUNCTION,
@@ -548,7 +549,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DeleteItemRequest import DeleteItemRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
             component=DeleteItemRequest.Constant.MODULE,
             target_function=DeleteItemRequest.Constant.FUNCTION,
@@ -576,7 +577,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.DescribeItemResult import DescribeItemResult
         return DescribeItemResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item",
             service=self.ENDPOINT,
             component=DescribeItemRequest.Constant.MODULE,
             target_function=DescribeItemRequest.Constant.FUNCTION,
@@ -602,7 +603,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.GetItemResult import GetItemResult
         return GetItemResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
             component=GetItemRequest.Constant.MODULE,
             target_function=GetItemRequest.Constant.FUNCTION,
@@ -637,7 +638,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         from gs2_consumable_item_client.control.UpdateItemRequest import UpdateItemRequest
         from gs2_consumable_item_client.control.UpdateItemResult import UpdateItemResult
         return UpdateItemResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
             component=UpdateItemRequest.Constant.MODULE,
             target_function=UpdateItemRequest.Constant.FUNCTION,
