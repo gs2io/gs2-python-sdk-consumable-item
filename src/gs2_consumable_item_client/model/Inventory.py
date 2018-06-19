@@ -129,6 +129,12 @@ class Inventory(object):
         """
         self.__update_at = update_at
 
+    def __getitem__(self, key):
+        items = self.to_dict()
+        if key in items.keys():
+            return items[key]
+        return super(Inventory, self).__getitem__(key)
+
     def to_dict(self):
         return {
             "inventoryId": self.__inventory_id,

@@ -67,6 +67,38 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             headers=headers
         ))
 
+    def acquisition_inventory_by_stamp_sheet(self, request):
+        """
+        スタンプシートを使用してインベントリにアイテムを加えます<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetRequest.AcquisitionInventoryByStampSheetRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetResult.AcquisitionInventoryByStampSheetResult
+        """
+        body = { 
+            "sheet": request.get_sheet(),
+            "keyName": request.get_key_name(),
+        }
+
+        if request.get_max_value() is not None:
+            body["maxValue"] = request.get_max_value()
+        headers = { 
+            "X-GS2-ACCESS-TOKEN": request.get_access_token()
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetRequest import AcquisitionInventoryByStampSheetRequest
+        from gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetResult import AcquisitionInventoryByStampSheetResult
+        return AcquisitionInventoryByStampSheetResult(self._do_post_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/item",
+            service=self.ENDPOINT,
+            component=AcquisitionInventoryByStampSheetRequest.Constant.MODULE,
+            target_function=AcquisitionInventoryByStampSheetRequest.Constant.FUNCTION,
+            body=body,
+            headers=headers
+        ))
+
     def acquisition_my_inventory(self, request):
         """
         インベントリにアイテムを加えます<br>
@@ -125,6 +157,36 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             service=self.ENDPOINT,
             component=ConsumeInventoryRequest.Constant.MODULE,
             target_function=ConsumeInventoryRequest.Constant.FUNCTION,
+            body=body,
+            headers=headers
+        ))
+
+    def consume_inventory_by_stamp_task(self, request):
+        """
+        スタンプタスクを使用してインベントリのアイテムを消費します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.ConsumeInventoryByStampTaskRequest.ConsumeInventoryByStampTaskRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.ConsumeInventoryByStampTaskResult.ConsumeInventoryByStampTaskResult
+        """
+        body = { 
+            "task": request.get_task(),
+            "keyName": request.get_key_name(),
+            "transactionId": request.get_transaction_id(),
+        }
+        headers = { 
+            "X-GS2-ACCESS-TOKEN": request.get_access_token()
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.ConsumeInventoryByStampTaskRequest import ConsumeInventoryByStampTaskRequest
+        from gs2_consumable_item_client.control.ConsumeInventoryByStampTaskResult import ConsumeInventoryByStampTaskResult
+        return ConsumeInventoryByStampTaskResult(self._do_put_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/item",
+            service=self.ENDPOINT,
+            component=ConsumeInventoryByStampTaskRequest.Constant.MODULE,
+            target_function=ConsumeInventoryByStampTaskRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
