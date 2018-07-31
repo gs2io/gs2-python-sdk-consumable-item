@@ -17,7 +17,7 @@
 from gs2_consumable_item_client.model import *
 
 
-class AcquisitionInventoryResult(object):
+class AcquisitionItemResult(object):
 
     def __init__(self, response):
         """
@@ -38,7 +38,7 @@ class AcquisitionInventoryResult(object):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(AcquisitionInventoryResult, self).__getitem__(key)
+        return super(AcquisitionItemResult, self).__getitem__(key)
 
     def to_dict(self):
         """

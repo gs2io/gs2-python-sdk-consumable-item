@@ -18,10 +18,10 @@ from gs2_core_client.Gs2UserRequest import Gs2UserRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class AcquisitionInventoryByStampSheetRequest(Gs2UserRequest):
+class ConsumeItemByStampTaskRequest(Gs2UserRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "AcquisitionInventoryByStampSheet"
+        FUNCTION = "ConsumeItemByStampTask"
 
     def __init__(self, params=None):
         """
@@ -29,43 +29,43 @@ class AcquisitionInventoryByStampSheetRequest(Gs2UserRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(AcquisitionInventoryByStampSheetRequest, self).__init__(params)
+        super(ConsumeItemByStampTaskRequest, self).__init__(params)
         if params is None:
-            self.__sheet = None
+            self.__task = None
             self.__key_name = None
-            self.__max_value = None
+            self.__transaction_id = None
         else:
-            self.set_sheet(params['sheet'] if 'sheet' in params.keys() else None)
+            self.set_task(params['task'] if 'task' in params.keys() else None)
             self.set_key_name(params['keyName'] if 'keyName' in params.keys() else None)
-            self.set_max_value(params['maxValue'] if 'maxValue' in params.keys() else None)
+            self.set_transaction_id(params['transactionId'] if 'transactionId' in params.keys() else None)
 
-    def get_sheet(self):
+    def get_task(self):
         """
-        スタンプシートを取得
-        :return: スタンプシート
+        スタンプタスクを取得
+        :return: スタンプタスク
         :rtype: unicode
         """
-        return self.__sheet
+        return self.__task
 
-    def set_sheet(self, sheet):
+    def set_task(self, task):
         """
-        スタンプシートを設定
-        :param sheet: スタンプシート
-        :type sheet: unicode
+        スタンプタスクを設定
+        :param task: スタンプタスク
+        :type task: unicode
         """
-        if sheet and not (isinstance(sheet, str) or isinstance(sheet, unicode)):
-            raise TypeError(type(sheet))
-        self.__sheet = sheet
+        if task and not (isinstance(task, str) or isinstance(task, unicode)):
+            raise TypeError(type(task))
+        self.__task = task
 
-    def with_sheet(self, sheet):
+    def with_task(self, task):
         """
-        スタンプシートを設定
-        :param sheet: スタンプシート
-        :type sheet: unicode
+        スタンプタスクを設定
+        :param task: スタンプタスク
+        :type task: unicode
         :return: this
-        :rtype: AcquisitionInventoryByStampSheetRequest
+        :rtype: ConsumeItemByStampTaskRequest
         """
-        self.set_sheet(sheet)
+        self.set_task(task)
         return self
 
     def get_key_name(self):
@@ -92,36 +92,36 @@ class AcquisitionInventoryByStampSheetRequest(Gs2UserRequest):
         :param key_name: スタンプの暗号鍵
         :type key_name: unicode
         :return: this
-        :rtype: AcquisitionInventoryByStampSheetRequest
+        :rtype: ConsumeItemByStampTaskRequest
         """
         self.set_key_name(key_name)
         return self
 
-    def get_max_value(self):
+    def get_transaction_id(self):
         """
-        スタミナの最大値を取得
-        :return: スタミナの最大値
-        :rtype: int
+        トランザクションIDを取得
+        :return: トランザクションID
+        :rtype: unicode
         """
-        return self.__max_value
+        return self.__transaction_id
 
-    def set_max_value(self, max_value):
+    def set_transaction_id(self, transaction_id):
         """
-        スタミナの最大値を設定
-        :param max_value: スタミナの最大値
-        :type max_value: int
+        トランザクションIDを設定
+        :param transaction_id: トランザクションID
+        :type transaction_id: unicode
         """
-        if max_value and not isinstance(max_value, int):
-            raise TypeError(type(max_value))
-        self.__max_value = max_value
+        if transaction_id and not (isinstance(transaction_id, str) or isinstance(transaction_id, unicode)):
+            raise TypeError(type(transaction_id))
+        self.__transaction_id = transaction_id
 
-    def with_max_value(self, max_value):
+    def with_transaction_id(self, transaction_id):
         """
-        スタミナの最大値を設定
-        :param max_value: スタミナの最大値
-        :type max_value: int
+        トランザクションIDを設定
+        :param transaction_id: トランザクションID
+        :type transaction_id: unicode
         :return: this
-        :rtype: AcquisitionInventoryByStampSheetRequest
+        :rtype: ConsumeItemByStampTaskRequest
         """
-        self.set_max_value(max_value)
+        self.set_transaction_id(transaction_id)
         return self

@@ -17,7 +17,7 @@
 from gs2_consumable_item_client.model import *
 
 
-class AcquisitionMyInventoryResult(object):
+class UpdateCurrentItemMasterResult(object):
 
     def __init__(self, response):
         """
@@ -25,12 +25,12 @@ class AcquisitionMyInventoryResult(object):
         :type response: レスポンスボディ
         :type response: dict
         """
-        self.__item = Inventory(response['item']) if 'item' in response.keys() and response['item'] is not None else None
+        self.__item = unicode(response['item']) if 'item' in response.keys() and response['item'] is not None else None
     def get_item(self):
         """
-        所持品を取得
-        :return: 所持品
-        :rtype: Inventory
+        現在適用されているアイテムマスターデータを取得
+        :return: 現在適用されているアイテムマスターデータ
+        :rtype: unicode
         """
         return self.__item
 
@@ -38,7 +38,7 @@ class AcquisitionMyInventoryResult(object):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(AcquisitionMyInventoryResult, self).__getitem__(key)
+        return super(UpdateCurrentItemMasterResult, self).__getitem__(key)
 
     def to_dict(self):
         """
@@ -47,5 +47,5 @@ class AcquisitionMyInventoryResult(object):
         :rtype: dict
         """
         return {
-            'item': self.__item.to_dict(),
+            'item': self.__item,
         }

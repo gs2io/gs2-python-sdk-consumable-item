@@ -14,14 +14,14 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
+from gs2_core_client.Gs2UserRequest import Gs2UserRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class DeleteItemRequest(Gs2BasicRequest):
+class AcquisitionItemRequest(Gs2UserRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "DeleteItem"
+        FUNCTION = "AcquisitionItem"
 
     def __init__(self, params=None):
         """
@@ -29,15 +29,15 @@ class DeleteItemRequest(Gs2BasicRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(DeleteItemRequest, self).__init__(params)
+        super(AcquisitionItemRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
+            self.__item_name = None
+            self.__count = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
-        if params is None:
-            self.__item_name = None
-        else:
             self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
+            self.set_count(params['count'] if 'count' in params.keys() else None)
 
     def get_item_pool_name(self):
         """
@@ -63,7 +63,7 @@ class DeleteItemRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: DeleteItemRequest
+        :rtype: AcquisitionItemRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
@@ -92,7 +92,36 @@ class DeleteItemRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         :return: this
-        :rtype: DeleteItemRequest
+        :rtype: AcquisitionItemRequest
         """
         self.set_item_name(item_name)
+        return self
+
+    def get_count(self):
+        """
+        入手数量を取得
+        :return: 入手数量
+        :rtype: int
+        """
+        return self.__count
+
+    def set_count(self, count):
+        """
+        入手数量を設定
+        :param count: 入手数量
+        :type count: int
+        """
+        if count and not isinstance(count, int):
+            raise TypeError(type(count))
+        self.__count = count
+
+    def with_count(self, count):
+        """
+        入手数量を設定
+        :param count: 入手数量
+        :type count: int
+        :return: this
+        :rtype: AcquisitionItemRequest
+        """
+        self.set_count(count)
         return self

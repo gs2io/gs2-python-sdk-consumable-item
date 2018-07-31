@@ -14,14 +14,14 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-from gs2_core_client.Gs2UserRequest import Gs2UserRequest
+from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class GetInventoryRequest(Gs2UserRequest):
+class ExportMasterRequest(Gs2BasicRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "GetInventory"
+        FUNCTION = "ExportMaster"
 
     def __init__(self, params=None):
         """
@@ -29,26 +29,24 @@ class GetInventoryRequest(Gs2UserRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(GetInventoryRequest, self).__init__(params)
+        super(ExportMasterRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-            self.__item_name = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
-            self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
 
     def get_item_pool_name(self):
         """
-        消費型アイテムプールの名前を取得
-        :return: 消費型アイテムプールの名前
+        アイテムプールの名前を指定します。を取得
+        :return: アイテムプールの名前を指定します。
         :rtype: unicode
         """
         return self.__item_pool_name
 
     def set_item_pool_name(self, item_pool_name):
         """
-        消費型アイテムプールの名前を設定
-        :param item_pool_name: 消費型アイテムプールの名前
+        アイテムプールの名前を指定します。を設定
+        :param item_pool_name: アイテムプールの名前を指定します。
         :type item_pool_name: unicode
         """
         if item_pool_name and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
@@ -57,40 +55,11 @@ class GetInventoryRequest(Gs2UserRequest):
 
     def with_item_pool_name(self, item_pool_name):
         """
-        消費型アイテムプールの名前を設定
-        :param item_pool_name: 消費型アイテムプールの名前
+        アイテムプールの名前を指定します。を設定
+        :param item_pool_name: アイテムプールの名前を指定します。
         :type item_pool_name: unicode
         :return: this
-        :rtype: GetInventoryRequest
+        :rtype: ExportMasterRequest
         """
         self.set_item_pool_name(item_pool_name)
-        return self
-
-    def get_item_name(self):
-        """
-        消費型アイテムの名前を取得
-        :return: 消費型アイテムの名前
-        :rtype: unicode
-        """
-        return self.__item_name
-
-    def set_item_name(self, item_name):
-        """
-        消費型アイテムの名前を設定
-        :param item_name: 消費型アイテムの名前
-        :type item_name: unicode
-        """
-        if item_name and not (isinstance(item_name, str) or isinstance(item_name, unicode)):
-            raise TypeError(type(item_name))
-        self.__item_name = item_name
-
-    def with_item_name(self, item_name):
-        """
-        消費型アイテムの名前を設定
-        :param item_name: 消費型アイテムの名前
-        :type item_name: unicode
-        :return: this
-        :rtype: GetInventoryRequest
-        """
-        self.set_item_name(item_name)
         return self

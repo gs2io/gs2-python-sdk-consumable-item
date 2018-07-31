@@ -18,10 +18,10 @@ from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class GetItemRequest(Gs2BasicRequest):
+class GetItemMasterRequest(Gs2BasicRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "GetItem"
+        FUNCTION = "GetItemMaster"
 
     def __init__(self, params=None):
         """
@@ -29,7 +29,7 @@ class GetItemRequest(Gs2BasicRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(GetItemRequest, self).__init__(params)
+        super(GetItemMasterRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
         else:
@@ -63,7 +63,7 @@ class GetItemRequest(Gs2BasicRequest):
         :param item_pool_name: 仮想通貨の名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: GetItemRequest
+        :rtype: GetItemMasterRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
@@ -92,7 +92,7 @@ class GetItemRequest(Gs2BasicRequest):
         :param item_name: 商品の名前
         :type item_name: unicode
         :return: this
-        :rtype: GetItemRequest
+        :rtype: GetItemMasterRequest
         """
         self.set_item_name(item_name)
         return self

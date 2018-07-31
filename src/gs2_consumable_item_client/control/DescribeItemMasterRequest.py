@@ -14,14 +14,14 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-from gs2_core_client.Gs2UserRequest import Gs2UserRequest
+from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class DescribeMyInventoryRequest(Gs2UserRequest):
+class DescribeItemMasterRequest(Gs2BasicRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "DescribeMyInventory"
+        FUNCTION = "DescribeItemMaster"
 
     def __init__(self, params=None):
         """
@@ -29,14 +29,18 @@ class DescribeMyInventoryRequest(Gs2UserRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(DescribeMyInventoryRequest, self).__init__(params)
+        super(DescribeItemMasterRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-            self.__page_token = None
-            self.__limit = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
+        if params is None:
+            self.__page_token = None
+        else:
             self.set_page_token(params['pageToken'] if 'pageToken' in params.keys() else None)
+        if params is None:
+            self.__limit = None
+        else:
             self.set_limit(params['limit'] if 'limit' in params.keys() else None)
 
     def get_item_pool_name(self):
@@ -63,7 +67,7 @@ class DescribeMyInventoryRequest(Gs2UserRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: DescribeMyInventoryRequest
+        :rtype: DescribeItemMasterRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
@@ -92,7 +96,7 @@ class DescribeMyInventoryRequest(Gs2UserRequest):
         :param page_token: データの取得を開始する位置を指定するトークン
         :type page_token: unicode
         :return: this
-        :rtype: DescribeMyInventoryRequest
+        :rtype: DescribeItemMasterRequest
         """
         self.set_page_token(page_token)
         return self
@@ -121,7 +125,7 @@ class DescribeMyInventoryRequest(Gs2UserRequest):
         :param limit: データの取得件数
         :type limit: int
         :return: this
-        :rtype: DescribeMyInventoryRequest
+        :rtype: DescribeItemMasterRequest
         """
         self.set_limit(limit)
         return self

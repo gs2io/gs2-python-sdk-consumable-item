@@ -14,14 +14,14 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-from gs2_core_client.Gs2UserRequest import Gs2UserRequest
+from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class GetMyInventoryRequest(Gs2UserRequest):
+class DeleteInventoryByUserIdRequest(Gs2BasicRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "GetMyInventory"
+        FUNCTION = "DeleteInventoryByUserId"
 
     def __init__(self, params=None):
         """
@@ -29,13 +29,19 @@ class GetMyInventoryRequest(Gs2UserRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(GetMyInventoryRequest, self).__init__(params)
+        super(DeleteInventoryByUserIdRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-            self.__item_name = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
+        if params is None:
+            self.__item_name = None
+        else:
             self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
+        if params is None:
+            self.__user_id = None
+        else:
+            self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
 
     def get_item_pool_name(self):
         """
@@ -61,7 +67,7 @@ class GetMyInventoryRequest(Gs2UserRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: GetMyInventoryRequest
+        :rtype: DeleteInventoryByUserIdRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
@@ -90,7 +96,36 @@ class GetMyInventoryRequest(Gs2UserRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         :return: this
-        :rtype: GetMyInventoryRequest
+        :rtype: DeleteInventoryByUserIdRequest
         """
         self.set_item_name(item_name)
+        return self
+
+    def get_user_id(self):
+        """
+        ユーザIDを取得
+        :return: ユーザID
+        :rtype: unicode
+        """
+        return self.__user_id
+
+    def set_user_id(self, user_id):
+        """
+        ユーザIDを設定
+        :param user_id: ユーザID
+        :type user_id: unicode
+        """
+        if user_id and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
+            raise TypeError(type(user_id))
+        self.__user_id = user_id
+
+    def with_user_id(self, user_id):
+        """
+        ユーザIDを設定
+        :param user_id: ユーザID
+        :type user_id: unicode
+        :return: this
+        :rtype: DeleteInventoryByUserIdRequest
+        """
+        self.set_user_id(user_id)
         return self

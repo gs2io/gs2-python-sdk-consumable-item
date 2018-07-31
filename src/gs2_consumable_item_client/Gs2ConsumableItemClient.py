@@ -33,7 +33,61 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         """
         super(Gs2ConsumableItemClient, self).__init__(credential, region)
 
-    def acquisition_inventory(self, request):
+    def get_current_item_master(self, request):
+        """
+        公開されているアイテムマスタを取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.GetCurrentItemMasterRequest.GetCurrentItemMasterRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.GetCurrentItemMasterResult.GetCurrentItemMasterResult
+        """
+        query_strings = {
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.GetCurrentItemMasterRequest import GetCurrentItemMasterRequest
+
+        from gs2_consumable_item_client.control.GetCurrentItemMasterResult import GetCurrentItemMasterResult
+        return GetCurrentItemMasterResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/master",
+            service=self.ENDPOINT,
+            component=GetCurrentItemMasterRequest.Constant.MODULE,
+            target_function=GetCurrentItemMasterRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def update_current_item_master(self, request):
+        """
+        公開するアイテムマスタを更新します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.UpdateCurrentItemMasterRequest.UpdateCurrentItemMasterRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.UpdateCurrentItemMasterResult.UpdateCurrentItemMasterResult
+        """
+        body = { 
+            "settings": request.get_settings(),
+        }
+
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.UpdateCurrentItemMasterRequest import UpdateCurrentItemMasterRequest
+        from gs2_consumable_item_client.control.UpdateCurrentItemMasterResult import UpdateCurrentItemMasterResult
+        return UpdateCurrentItemMasterResult(self._do_post_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/master",
+            service=self.ENDPOINT,
+            component=UpdateCurrentItemMasterRequest.Constant.MODULE,
+            target_function=UpdateCurrentItemMasterRequest.Constant.FUNCTION,
+            body=body,
+            headers=headers
+        ))
+
+    def acquisition_item(self, request):
         """
         インベントリにアイテムを加えます<br>
         <br>
@@ -44,62 +98,61 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         1個も付与せずにエラーを返します。<br>
         <br>
         :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.AcquisitionInventoryRequest.AcquisitionInventoryRequest
+        :type request: gs2_consumable_item_client.control.AcquisitionItemRequest.AcquisitionItemRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.AcquisitionInventoryResult.AcquisitionInventoryResult
+        :rtype: gs2_consumable_item_client.control.AcquisitionItemResult.AcquisitionItemResult
         """
         body = { 
             "count": request.get_count(),
         }
 
         headers = { 
+            "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.AcquisitionInventoryRequest import AcquisitionInventoryRequest
-        from gs2_consumable_item_client.control.AcquisitionInventoryResult import AcquisitionInventoryResult
-        return AcquisitionInventoryResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
+        from gs2_consumable_item_client.control.AcquisitionItemRequest import AcquisitionItemRequest
+        from gs2_consumable_item_client.control.AcquisitionItemResult import AcquisitionItemResult
+        return AcquisitionItemResult(self._do_post_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
-            component=AcquisitionInventoryRequest.Constant.MODULE,
-            target_function=AcquisitionInventoryRequest.Constant.FUNCTION,
+            component=AcquisitionItemRequest.Constant.MODULE,
+            target_function=AcquisitionItemRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
-    def acquisition_inventory_by_stamp_sheet(self, request):
+    def acquisition_item_by_stamp_sheet(self, request):
         """
         スタンプシートを使用してインベントリにアイテムを加えます<br>
         <br>
         :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetRequest.AcquisitionInventoryByStampSheetRequest
+        :type request: gs2_consumable_item_client.control.AcquisitionItemByStampSheetRequest.AcquisitionItemByStampSheetRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetResult.AcquisitionInventoryByStampSheetResult
+        :rtype: gs2_consumable_item_client.control.AcquisitionItemByStampSheetResult.AcquisitionItemByStampSheetResult
         """
         body = { 
             "sheet": request.get_sheet(),
             "keyName": request.get_key_name(),
         }
 
-        if request.get_max_value() is not None:
-            body["maxValue"] = request.get_max_value()
         headers = { 
             "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetRequest import AcquisitionInventoryByStampSheetRequest
-        from gs2_consumable_item_client.control.AcquisitionInventoryByStampSheetResult import AcquisitionInventoryByStampSheetResult
-        return AcquisitionInventoryByStampSheetResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/item",
+        from gs2_consumable_item_client.control.AcquisitionItemByStampSheetRequest import AcquisitionItemByStampSheetRequest
+        from gs2_consumable_item_client.control.AcquisitionItemByStampSheetResult import AcquisitionItemByStampSheetResult
+        return AcquisitionItemByStampSheetResult(self._do_post_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/inventory",
             service=self.ENDPOINT,
-            component=AcquisitionInventoryByStampSheetRequest.Constant.MODULE,
-            target_function=AcquisitionInventoryByStampSheetRequest.Constant.FUNCTION,
+            component=AcquisitionItemByStampSheetRequest.Constant.MODULE,
+            target_function=AcquisitionItemByStampSheetRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
-    def acquisition_my_inventory(self, request):
+    def acquisition_item_by_user_id(self, request):
         """
         インベントリにアイテムを加えます<br>
         <br>
@@ -110,65 +163,65 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         1個も付与せずにエラーを返します。<br>
         <br>
         :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.AcquisitionMyInventoryRequest.AcquisitionMyInventoryRequest
+        :type request: gs2_consumable_item_client.control.AcquisitionItemByUserIdRequest.AcquisitionItemByUserIdRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.AcquisitionMyInventoryResult.AcquisitionMyInventoryResult
+        :rtype: gs2_consumable_item_client.control.AcquisitionItemByUserIdResult.AcquisitionItemByUserIdResult
         """
         body = { 
             "count": request.get_count(),
         }
 
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.AcquisitionItemByUserIdRequest import AcquisitionItemByUserIdRequest
+        from gs2_consumable_item_client.control.AcquisitionItemByUserIdResult import AcquisitionItemByUserIdResult
+        return AcquisitionItemByUserIdResult(self._do_post_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            service=self.ENDPOINT,
+            component=AcquisitionItemByUserIdRequest.Constant.MODULE,
+            target_function=AcquisitionItemByUserIdRequest.Constant.FUNCTION,
+            body=body,
+            headers=headers
+        ))
+
+    def consume_item(self, request):
+        """
+        インベントリのアイテムを消費します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.ConsumeItemRequest.ConsumeItemRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.ConsumeItemResult.ConsumeItemResult
+        """
+        body = { 
+            "count": request.get_count(),
+        }
         headers = { 
             "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.AcquisitionMyInventoryRequest import AcquisitionMyInventoryRequest
-        from gs2_consumable_item_client.control.AcquisitionMyInventoryResult import AcquisitionMyInventoryResult
-        return AcquisitionMyInventoryResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/my",
+        from gs2_consumable_item_client.control.ConsumeItemRequest import ConsumeItemRequest
+        from gs2_consumable_item_client.control.ConsumeItemResult import ConsumeItemResult
+        return ConsumeItemResult(self._do_put_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
-            component=AcquisitionMyInventoryRequest.Constant.MODULE,
-            target_function=AcquisitionMyInventoryRequest.Constant.FUNCTION,
+            component=ConsumeItemRequest.Constant.MODULE,
+            target_function=ConsumeItemRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
-    def consume_inventory(self, request):
-        """
-        インベントリのアイテムを消費します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.ConsumeInventoryRequest.ConsumeInventoryRequest
-        :return: 結果
-        :rtype: gs2_consumable_item_client.control.ConsumeInventoryResult.ConsumeInventoryResult
-        """
-        body = { 
-            "count": request.get_count(),
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.ConsumeInventoryRequest import ConsumeInventoryRequest
-        from gs2_consumable_item_client.control.ConsumeInventoryResult import ConsumeInventoryResult
-        return ConsumeInventoryResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
-            service=self.ENDPOINT,
-            component=ConsumeInventoryRequest.Constant.MODULE,
-            target_function=ConsumeInventoryRequest.Constant.FUNCTION,
-            body=body,
-            headers=headers
-        ))
-
-    def consume_inventory_by_stamp_task(self, request):
+    def consume_item_by_stamp_task(self, request):
         """
         スタンプタスクを使用してインベントリのアイテムを消費します<br>
         <br>
         :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.ConsumeInventoryByStampTaskRequest.ConsumeInventoryByStampTaskRequest
+        :type request: gs2_consumable_item_client.control.ConsumeItemByStampTaskRequest.ConsumeItemByStampTaskRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.ConsumeInventoryByStampTaskResult.ConsumeInventoryByStampTaskResult
+        :rtype: gs2_consumable_item_client.control.ConsumeItemByStampTaskResult.ConsumeItemByStampTaskResult
         """
         body = { 
             "task": request.get_task(),
@@ -180,63 +233,62 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.ConsumeInventoryByStampTaskRequest import ConsumeInventoryByStampTaskRequest
-        from gs2_consumable_item_client.control.ConsumeInventoryByStampTaskResult import ConsumeInventoryByStampTaskResult
-        return ConsumeInventoryByStampTaskResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/item",
+        from gs2_consumable_item_client.control.ConsumeItemByStampTaskRequest import ConsumeItemByStampTaskRequest
+        from gs2_consumable_item_client.control.ConsumeItemByStampTaskResult import ConsumeItemByStampTaskResult
+        return ConsumeItemByStampTaskResult(self._do_put_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/inventory",
             service=self.ENDPOINT,
-            component=ConsumeInventoryByStampTaskRequest.Constant.MODULE,
-            target_function=ConsumeInventoryByStampTaskRequest.Constant.FUNCTION,
+            component=ConsumeItemByStampTaskRequest.Constant.MODULE,
+            target_function=ConsumeItemByStampTaskRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
-    def consume_my_inventory(self, request):
+    def consume_item_by_user_id(self, request):
         """
         インベントリのアイテムを消費します<br>
         <br>
         :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.ConsumeMyInventoryRequest.ConsumeMyInventoryRequest
+        :type request: gs2_consumable_item_client.control.ConsumeItemByUserIdRequest.ConsumeItemByUserIdRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.ConsumeMyInventoryResult.ConsumeMyInventoryResult
+        :rtype: gs2_consumable_item_client.control.ConsumeItemByUserIdResult.ConsumeItemByUserIdResult
         """
         body = { 
             "count": request.get_count(),
         }
         headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.ConsumeMyInventoryRequest import ConsumeMyInventoryRequest
-        from gs2_consumable_item_client.control.ConsumeMyInventoryResult import ConsumeMyInventoryResult
-        return ConsumeMyInventoryResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/my",
+        from gs2_consumable_item_client.control.ConsumeItemByUserIdRequest import ConsumeItemByUserIdRequest
+        from gs2_consumable_item_client.control.ConsumeItemByUserIdResult import ConsumeItemByUserIdResult
+        return ConsumeItemByUserIdResult(self._do_put_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
-            component=ConsumeMyInventoryRequest.Constant.MODULE,
-            target_function=ConsumeMyInventoryRequest.Constant.FUNCTION,
+            component=ConsumeItemByUserIdRequest.Constant.MODULE,
+            target_function=ConsumeItemByUserIdRequest.Constant.FUNCTION,
             body=body,
             headers=headers
         ))
 
-    def delete_inventory(self, request):
+    def delete_inventory_by_user_id(self, request):
         """
         インベントリからアイテムを削除します<br>
         <br>
         :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.DeleteInventoryRequest.DeleteInventoryRequest
+        :type request: gs2_consumable_item_client.control.DeleteInventoryByUserIdRequest.DeleteInventoryByUserIdRequest
         """
         query_strings = {}
         headers = { 
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.DeleteInventoryRequest import DeleteInventoryRequest
+        from gs2_consumable_item_client.control.DeleteInventoryByUserIdRequest import DeleteInventoryByUserIdRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
-            component=DeleteInventoryRequest.Constant.MODULE,
-            target_function=DeleteInventoryRequest.Constant.FUNCTION,
+            component=DeleteInventoryByUserIdRequest.Constant.MODULE,
+            target_function=DeleteInventoryByUserIdRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         )
@@ -254,6 +306,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             'limit': request.get_limit(),
         }
         headers = { 
+            "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
@@ -261,7 +314,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.DescribeInventoryResult import DescribeInventoryResult
         return DescribeInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my",
             service=self.ENDPOINT,
             component=DescribeInventoryRequest.Constant.MODULE,
             target_function=DescribeInventoryRequest.Constant.FUNCTION,
@@ -269,31 +322,30 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             headers=headers
         ))
 
-    def describe_my_inventory(self, request):
+    def describe_inventory_by_user_id(self, request):
         """
         ユーザが所持しているインベントリの一覧を取得します<br>
         <br>:param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.DescribeMyInventoryRequest.DescribeMyInventoryRequest
+        :type request: gs2_consumable_item_client.control.DescribeInventoryByUserIdRequest.DescribeInventoryByUserIdRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.DescribeMyInventoryResult.DescribeMyInventoryResult
+        :rtype: gs2_consumable_item_client.control.DescribeInventoryByUserIdResult.DescribeInventoryByUserIdResult
         """
         query_strings = {
             'pageToken': request.get_page_token(),
             'limit': request.get_limit(),
         }
         headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.DescribeMyInventoryRequest import DescribeMyInventoryRequest
+        from gs2_consumable_item_client.control.DescribeInventoryByUserIdRequest import DescribeInventoryByUserIdRequest
 
-        from gs2_consumable_item_client.control.DescribeMyInventoryResult import DescribeMyInventoryResult
-        return DescribeMyInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/my",
+        from gs2_consumable_item_client.control.DescribeInventoryByUserIdResult import DescribeInventoryByUserIdResult
+        return DescribeInventoryByUserIdResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
             service=self.ENDPOINT,
-            component=DescribeMyInventoryRequest.Constant.MODULE,
-            target_function=DescribeMyInventoryRequest.Constant.FUNCTION,
+            component=DescribeInventoryByUserIdRequest.Constant.MODULE,
+            target_function=DescribeInventoryByUserIdRequest.Constant.FUNCTION,
             query_strings=query_strings,
             headers=headers
         ))
@@ -309,6 +361,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         query_strings = {
         }
         headers = { 
+            "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
@@ -316,7 +369,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         from gs2_consumable_item_client.control.GetInventoryResult import GetInventoryResult
         return GetInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
             component=GetInventoryRequest.Constant.MODULE,
             target_function=GetInventoryRequest.Constant.FUNCTION,
@@ -324,30 +377,183 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             headers=headers
         ))
 
-    def get_my_inventory(self, request):
+    def get_inventory_by_user_id(self, request):
         """
         インベントリの内容を取得します<br>
         <br>:param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.GetMyInventoryRequest.GetMyInventoryRequest
+        :type request: gs2_consumable_item_client.control.GetInventoryByUserIdRequest.GetInventoryByUserIdRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.GetMyInventoryResult.GetMyInventoryResult
+        :rtype: gs2_consumable_item_client.control.GetInventoryByUserIdResult.GetInventoryByUserIdResult
         """
         query_strings = {
         }
         headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.GetMyInventoryRequest import GetMyInventoryRequest
+        from gs2_consumable_item_client.control.GetInventoryByUserIdRequest import GetInventoryByUserIdRequest
 
-        from gs2_consumable_item_client.control.GetMyInventoryResult import GetMyInventoryResult
-        return GetMyInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "/my",
+        from gs2_consumable_item_client.control.GetInventoryByUserIdResult import GetInventoryByUserIdResult
+        return GetInventoryByUserIdResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
             service=self.ENDPOINT,
-            component=GetMyInventoryRequest.Constant.MODULE,
-            target_function=GetMyInventoryRequest.Constant.FUNCTION,
+            component=GetInventoryByUserIdRequest.Constant.MODULE,
+            target_function=GetInventoryByUserIdRequest.Constant.FUNCTION,
             query_strings=query_strings,
+            headers=headers
+        ))
+
+    def create_item_master(self, request):
+        """
+        消費型アイテムを新規作成します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.CreateItemMasterRequest.CreateItemMasterRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.CreateItemMasterResult.CreateItemMasterResult
+        """
+        body = { 
+            "name": request.get_name(),
+        }
+
+        if request.get_max() is not None:
+            body["max"] = request.get_max()
+        if request.get_acquisition_item_trigger_script() is not None:
+            body["acquisitionItemTriggerScript"] = request.get_acquisition_item_trigger_script()
+        if request.get_acquisition_item_done_trigger_script() is not None:
+            body["acquisitionItemDoneTriggerScript"] = request.get_acquisition_item_done_trigger_script()
+        if request.get_consume_item_trigger_script() is not None:
+            body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
+        if request.get_consume_item_done_trigger_script() is not None:
+            body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.CreateItemMasterRequest import CreateItemMasterRequest
+        from gs2_consumable_item_client.control.CreateItemMasterResult import CreateItemMasterResult
+        return CreateItemMasterResult(self._do_post_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item",
+            service=self.ENDPOINT,
+            component=CreateItemMasterRequest.Constant.MODULE,
+            target_function=CreateItemMasterRequest.Constant.FUNCTION,
+            body=body,
+            headers=headers
+        ))
+
+    def delete_item_master(self, request):
+        """
+        消費型アイテムを削除します<br>
+        <br>
+        既にアイテムを所持しているユーザがいる場合、そのアイテムはインベントリから削除されることはありません。<br>
+        消費型アイテムを削除することで新しくアイテムを付与することはできなくなりますが、消費することは出来ます。<br>
+        <br>
+        これを防ぎたい場合はすべてのユーザのインベントリを走査して該当アイテムを削除する必要があります。<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.DeleteItemMasterRequest.DeleteItemMasterRequest
+        """
+        query_strings = {}
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.DeleteItemMasterRequest import DeleteItemMasterRequest
+        self._do_delete_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            service=self.ENDPOINT,
+            component=DeleteItemMasterRequest.Constant.MODULE,
+            target_function=DeleteItemMasterRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        )
+
+    def describe_item_master(self, request):
+        """
+        消費型アイテムの一覧を取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.DescribeItemMasterRequest.DescribeItemMasterRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.DescribeItemMasterResult.DescribeItemMasterResult
+        """
+        query_strings = {
+            'pageToken': request.get_page_token(),
+            'limit': request.get_limit(),
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.DescribeItemMasterRequest import DescribeItemMasterRequest
+
+        from gs2_consumable_item_client.control.DescribeItemMasterResult import DescribeItemMasterResult
+        return DescribeItemMasterResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item",
+            service=self.ENDPOINT,
+            component=DescribeItemMasterRequest.Constant.MODULE,
+            target_function=DescribeItemMasterRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def get_item_master(self, request):
+        """
+        消費型アイテムを取得します<br>
+        <br>:param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.GetItemMasterRequest.GetItemMasterRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.GetItemMasterResult.GetItemMasterResult
+        """
+        query_strings = {
+        }
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.GetItemMasterRequest import GetItemMasterRequest
+
+        from gs2_consumable_item_client.control.GetItemMasterResult import GetItemMasterResult
+        return GetItemMasterResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            service=self.ENDPOINT,
+            component=GetItemMasterRequest.Constant.MODULE,
+            target_function=GetItemMasterRequest.Constant.FUNCTION,
+            query_strings=query_strings,
+            headers=headers
+        ))
+
+    def update_item_master(self, request):
+        """
+        消費型アイテムを更新します<br>
+        <br>
+        :param request: リクエストパラメータ
+        :type request: gs2_consumable_item_client.control.UpdateItemMasterRequest.UpdateItemMasterRequest
+        :return: 結果
+        :rtype: gs2_consumable_item_client.control.UpdateItemMasterResult.UpdateItemMasterResult
+        """
+        body = { 
+            "max": request.get_max(),
+        }
+        if request.get_acquisition_item_trigger_script() is not None:
+            body["acquisitionItemTriggerScript"] = request.get_acquisition_item_trigger_script()
+        if request.get_acquisition_item_done_trigger_script() is not None:
+            body["acquisitionItemDoneTriggerScript"] = request.get_acquisition_item_done_trigger_script()
+        if request.get_consume_item_trigger_script() is not None:
+            body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
+        if request.get_consume_item_done_trigger_script() is not None:
+            body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
+        headers = { 
+        }
+        if request.get_request_id() is not None:
+            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
+        from gs2_consumable_item_client.control.UpdateItemMasterRequest import UpdateItemMasterRequest
+        from gs2_consumable_item_client.control.UpdateItemMasterResult import UpdateItemMasterResult
+        return UpdateItemMasterResult(self._do_put_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            service=self.ENDPOINT,
+            component=UpdateItemMasterRequest.Constant.MODULE,
+            target_function=UpdateItemMasterRequest.Constant.FUNCTION,
+            body=body,
             headers=headers
         ))
 
@@ -367,14 +573,14 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
 
         if request.get_description() is not None:
             body["description"] = request.get_description()
-        if request.get_acquisition_inventory_trigger_script() is not None:
-            body["acquisitionInventoryTriggerScript"] = request.get_acquisition_inventory_trigger_script()
-        if request.get_acquisition_inventory_done_trigger_script() is not None:
-            body["acquisitionInventoryDoneTriggerScript"] = request.get_acquisition_inventory_done_trigger_script()
-        if request.get_consume_inventory_trigger_script() is not None:
-            body["consumeInventoryTriggerScript"] = request.get_consume_inventory_trigger_script()
-        if request.get_consume_inventory_done_trigger_script() is not None:
-            body["consumeInventoryDoneTriggerScript"] = request.get_consume_inventory_done_trigger_script()
+        if request.get_acquisition_item_trigger_script() is not None:
+            body["acquisitionItemTriggerScript"] = request.get_acquisition_item_trigger_script()
+        if request.get_acquisition_item_done_trigger_script() is not None:
+            body["acquisitionItemDoneTriggerScript"] = request.get_acquisition_item_done_trigger_script()
+        if request.get_consume_item_trigger_script() is not None:
+            body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
+        if request.get_consume_item_done_trigger_script() is not None:
+            body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
         headers = { 
         }
         if request.get_request_id() is not None:
@@ -532,14 +738,14 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         }
         if request.get_description() is not None:
             body["description"] = request.get_description()
-        if request.get_acquisition_inventory_trigger_script() is not None:
-            body["acquisitionInventoryTriggerScript"] = request.get_acquisition_inventory_trigger_script()
-        if request.get_acquisition_inventory_done_trigger_script() is not None:
-            body["acquisitionInventoryDoneTriggerScript"] = request.get_acquisition_inventory_done_trigger_script()
-        if request.get_consume_inventory_trigger_script() is not None:
-            body["consumeInventoryTriggerScript"] = request.get_consume_inventory_trigger_script()
-        if request.get_consume_inventory_done_trigger_script() is not None:
-            body["consumeInventoryDoneTriggerScript"] = request.get_consume_inventory_done_trigger_script()
+        if request.get_acquisition_item_trigger_script() is not None:
+            body["acquisitionItemTriggerScript"] = request.get_acquisition_item_trigger_script()
+        if request.get_acquisition_item_done_trigger_script() is not None:
+            body["acquisitionItemDoneTriggerScript"] = request.get_acquisition_item_done_trigger_script()
+        if request.get_consume_item_trigger_script() is not None:
+            body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
+        if request.get_consume_item_done_trigger_script() is not None:
+            body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
         headers = { 
         }
         if request.get_request_id() is not None:
@@ -555,105 +761,13 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             headers=headers
         ))
 
-    def create_item(self, request):
+    def export_master(self, request):
         """
-        消費型アイテムを新規作成します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.CreateItemRequest.CreateItemRequest
-        :return: 結果
-        :rtype: gs2_consumable_item_client.control.CreateItemResult.CreateItemResult
-        """
-        body = { 
-            "name": request.get_name(),
-            "max": request.get_max(),
-        }
-
-        if request.get_acquisition_inventory_trigger_script() is not None:
-            body["acquisitionInventoryTriggerScript"] = request.get_acquisition_inventory_trigger_script()
-        if request.get_acquisition_inventory_done_trigger_script() is not None:
-            body["acquisitionInventoryDoneTriggerScript"] = request.get_acquisition_inventory_done_trigger_script()
-        if request.get_consume_inventory_trigger_script() is not None:
-            body["consumeInventoryTriggerScript"] = request.get_consume_inventory_trigger_script()
-        if request.get_consume_inventory_done_trigger_script() is not None:
-            body["consumeInventoryDoneTriggerScript"] = request.get_consume_inventory_done_trigger_script()
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.CreateItemRequest import CreateItemRequest
-        from gs2_consumable_item_client.control.CreateItemResult import CreateItemResult
-        return CreateItemResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item",
-            service=self.ENDPOINT,
-            component=CreateItemRequest.Constant.MODULE,
-            target_function=CreateItemRequest.Constant.FUNCTION,
-            body=body,
-            headers=headers
-        ))
-
-    def delete_item(self, request):
-        """
-        消費型アイテムを削除します<br>
-        <br>
-        既にアイテムを所持しているユーザがいる場合、そのアイテムはインベントリから削除されることはありません。<br>
-        消費型アイテムを削除することで新しくアイテムを付与することはできなくなりますが、消費することは出来ます。<br>
-        <br>
-        これを防ぎたい場合はすべてのユーザのインベントリを走査して該当アイテムを削除する必要があります。<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.DeleteItemRequest.DeleteItemRequest
-        """
-        query_strings = {}
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.DeleteItemRequest import DeleteItemRequest
-        self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
-            service=self.ENDPOINT,
-            component=DeleteItemRequest.Constant.MODULE,
-            target_function=DeleteItemRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        )
-
-    def describe_item(self, request):
-        """
-        消費型アイテムの一覧を取得します<br>
+        アイテムマスターデータをエクスポートする<br>
         <br>:param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.DescribeItemRequest.DescribeItemRequest
+        :type request: gs2_consumable_item_client.control.ExportMasterRequest.ExportMasterRequest
         :return: 結果
-        :rtype: gs2_consumable_item_client.control.DescribeItemResult.DescribeItemResult
-        """
-        query_strings = {
-            'pageToken': request.get_page_token(),
-            'limit': request.get_limit(),
-        }
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.DescribeItemRequest import DescribeItemRequest
-
-        from gs2_consumable_item_client.control.DescribeItemResult import DescribeItemResult
-        return DescribeItemResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item",
-            service=self.ENDPOINT,
-            component=DescribeItemRequest.Constant.MODULE,
-            target_function=DescribeItemRequest.Constant.FUNCTION,
-            query_strings=query_strings,
-            headers=headers
-        ))
-
-    def get_item(self, request):
-        """
-        消費型アイテムを取得します<br>
-        <br>:param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.GetItemRequest.GetItemRequest
-        :return: 結果
-        :rtype: gs2_consumable_item_client.control.GetItemResult.GetItemResult
+        :rtype: gs2_consumable_item_client.control.ExportMasterResult.ExportMasterResult
         """
         query_strings = {
         }
@@ -661,49 +775,14 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         }
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.GetItemRequest import GetItemRequest
+        from gs2_consumable_item_client.control.ExportMasterRequest import ExportMasterRequest
 
-        from gs2_consumable_item_client.control.GetItemResult import GetItemResult
-        return GetItemResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+        from gs2_consumable_item_client.control.ExportMasterResult import ExportMasterResult
+        return ExportMasterResult(self._do_get_request(
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master",
             service=self.ENDPOINT,
-            component=GetItemRequest.Constant.MODULE,
-            target_function=GetItemRequest.Constant.FUNCTION,
+            component=ExportMasterRequest.Constant.MODULE,
+            target_function=ExportMasterRequest.Constant.FUNCTION,
             query_strings=query_strings,
-            headers=headers
-        ))
-
-    def update_item(self, request):
-        """
-        消費型アイテムを更新します<br>
-        <br>
-        :param request: リクエストパラメータ
-        :type request: gs2_consumable_item_client.control.UpdateItemRequest.UpdateItemRequest
-        :return: 結果
-        :rtype: gs2_consumable_item_client.control.UpdateItemResult.UpdateItemResult
-        """
-        body = { 
-            "max": request.get_max(),
-        }
-        if request.get_acquisition_inventory_trigger_script() is not None:
-            body["acquisitionInventoryTriggerScript"] = request.get_acquisition_inventory_trigger_script()
-        if request.get_acquisition_inventory_done_trigger_script() is not None:
-            body["acquisitionInventoryDoneTriggerScript"] = request.get_acquisition_inventory_done_trigger_script()
-        if request.get_consume_inventory_trigger_script() is not None:
-            body["consumeInventoryTriggerScript"] = request.get_consume_inventory_trigger_script()
-        if request.get_consume_inventory_done_trigger_script() is not None:
-            body["consumeInventoryDoneTriggerScript"] = request.get_consume_inventory_done_trigger_script()
-        headers = { 
-        }
-        if request.get_request_id() is not None:
-            headers["X-GS2-REQUEST-ID"] = request.get_request_id()
-        from gs2_consumable_item_client.control.UpdateItemRequest import UpdateItemRequest
-        from gs2_consumable_item_client.control.UpdateItemResult import UpdateItemResult
-        return UpdateItemResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
-            service=self.ENDPOINT,
-            component=UpdateItemRequest.Constant.MODULE,
-            target_function=UpdateItemRequest.Constant.FUNCTION,
-            body=body,
             headers=headers
         ))

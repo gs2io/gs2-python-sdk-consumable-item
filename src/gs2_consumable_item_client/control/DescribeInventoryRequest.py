@@ -14,11 +14,11 @@
 # express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
+from gs2_core_client.Gs2UserRequest import Gs2UserRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class DescribeInventoryRequest(Gs2BasicRequest):
+class DescribeInventoryRequest(Gs2UserRequest):
 
     class Constant(Gs2ConsumableItem):
         FUNCTION = "DescribeInventory"
@@ -32,19 +32,11 @@ class DescribeInventoryRequest(Gs2BasicRequest):
         super(DescribeInventoryRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
-        else:
-            self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
-        if params is None:
-            self.__user_id = None
-        else:
-            self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
-        if params is None:
             self.__page_token = None
-        else:
-            self.set_page_token(params['pageToken'] if 'pageToken' in params.keys() else None)
-        if params is None:
             self.__limit = None
         else:
+            self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
+            self.set_page_token(params['pageToken'] if 'pageToken' in params.keys() else None)
             self.set_limit(params['limit'] if 'limit' in params.keys() else None)
 
     def get_item_pool_name(self):
@@ -74,35 +66,6 @@ class DescribeInventoryRequest(Gs2BasicRequest):
         :rtype: DescribeInventoryRequest
         """
         self.set_item_pool_name(item_pool_name)
-        return self
-
-    def get_user_id(self):
-        """
-        ユーザIDを取得
-        :return: ユーザID
-        :rtype: unicode
-        """
-        return self.__user_id
-
-    def set_user_id(self, user_id):
-        """
-        ユーザIDを設定
-        :param user_id: ユーザID
-        :type user_id: unicode
-        """
-        if user_id and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
-            raise TypeError(type(user_id))
-        self.__user_id = user_id
-
-    def with_user_id(self, user_id):
-        """
-        ユーザIDを設定
-        :param user_id: ユーザID
-        :type user_id: unicode
-        :return: this
-        :rtype: DescribeInventoryRequest
-        """
-        self.set_user_id(user_id)
         return self
 
     def get_page_token(self):

@@ -18,10 +18,10 @@ from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class UpdateItemRequest(Gs2BasicRequest):
+class UpdateItemMasterRequest(Gs2BasicRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "UpdateItem"
+        FUNCTION = "UpdateItemMaster"
 
     def __init__(self, params=None):
         """
@@ -29,7 +29,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(UpdateItemRequest, self).__init__(params)
+        super(UpdateItemMasterRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
         else:
@@ -43,21 +43,21 @@ class UpdateItemRequest(Gs2BasicRequest):
         else:
             self.set_max(params['max'] if 'max' in params.keys() else None)
         if params is None:
-            self.__acquisition_inventory_trigger_script = None
+            self.__acquisition_item_trigger_script = None
         else:
-            self.set_acquisition_inventory_trigger_script(params['acquisitionInventoryTriggerScript'] if 'acquisitionInventoryTriggerScript' in params.keys() else None)
+            self.set_acquisition_item_trigger_script(params['acquisitionItemTriggerScript'] if 'acquisitionItemTriggerScript' in params.keys() else None)
         if params is None:
-            self.__acquisition_inventory_done_trigger_script = None
+            self.__acquisition_item_done_trigger_script = None
         else:
-            self.set_acquisition_inventory_done_trigger_script(params['acquisitionInventoryDoneTriggerScript'] if 'acquisitionInventoryDoneTriggerScript' in params.keys() else None)
+            self.set_acquisition_item_done_trigger_script(params['acquisitionItemDoneTriggerScript'] if 'acquisitionItemDoneTriggerScript' in params.keys() else None)
         if params is None:
-            self.__consume_inventory_trigger_script = None
+            self.__consume_item_trigger_script = None
         else:
-            self.set_consume_inventory_trigger_script(params['consumeInventoryTriggerScript'] if 'consumeInventoryTriggerScript' in params.keys() else None)
+            self.set_consume_item_trigger_script(params['consumeItemTriggerScript'] if 'consumeItemTriggerScript' in params.keys() else None)
         if params is None:
-            self.__consume_inventory_done_trigger_script = None
+            self.__consume_item_done_trigger_script = None
         else:
-            self.set_consume_inventory_done_trigger_script(params['consumeInventoryDoneTriggerScript'] if 'consumeInventoryDoneTriggerScript' in params.keys() else None)
+            self.set_consume_item_done_trigger_script(params['consumeItemDoneTriggerScript'] if 'consumeItemDoneTriggerScript' in params.keys() else None)
 
     def get_item_pool_name(self):
         """
@@ -83,7 +83,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: UpdateItemRequest
+        :rtype: UpdateItemMasterRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
@@ -112,7 +112,7 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         :return: this
-        :rtype: UpdateItemRequest
+        :rtype: UpdateItemMasterRequest
         """
         self.set_item_name(item_name)
         return self
@@ -141,123 +141,123 @@ class UpdateItemRequest(Gs2BasicRequest):
         :param max: 最大所持数。
         :type max: int
         :return: this
-        :rtype: UpdateItemRequest
+        :rtype: UpdateItemMasterRequest
         """
         self.set_max(max)
         return self
 
-    def get_acquisition_inventory_trigger_script(self):
+    def get_acquisition_item_trigger_script(self):
         """
         アイテム入手時 に実行されるGS2-Scriptを取得
         :return: アイテム入手時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__acquisition_inventory_trigger_script
+        return self.__acquisition_item_trigger_script
 
-    def set_acquisition_inventory_trigger_script(self, acquisition_inventory_trigger_script):
+    def set_acquisition_item_trigger_script(self, acquisition_item_trigger_script):
         """
         アイテム入手時 に実行されるGS2-Scriptを設定
-        :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
-        :type acquisition_inventory_trigger_script: unicode
+        :param acquisition_item_trigger_script: アイテム入手時 に実行されるGS2-Script
+        :type acquisition_item_trigger_script: unicode
         """
-        if acquisition_inventory_trigger_script and not (isinstance(acquisition_inventory_trigger_script, str) or isinstance(acquisition_inventory_trigger_script, unicode)):
-            raise TypeError(type(acquisition_inventory_trigger_script))
-        self.__acquisition_inventory_trigger_script = acquisition_inventory_trigger_script
+        if acquisition_item_trigger_script and not (isinstance(acquisition_item_trigger_script, str) or isinstance(acquisition_item_trigger_script, unicode)):
+            raise TypeError(type(acquisition_item_trigger_script))
+        self.__acquisition_item_trigger_script = acquisition_item_trigger_script
 
-    def with_acquisition_inventory_trigger_script(self, acquisition_inventory_trigger_script):
+    def with_acquisition_item_trigger_script(self, acquisition_item_trigger_script):
         """
         アイテム入手時 に実行されるGS2-Scriptを設定
-        :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
-        :type acquisition_inventory_trigger_script: unicode
+        :param acquisition_item_trigger_script: アイテム入手時 に実行されるGS2-Script
+        :type acquisition_item_trigger_script: unicode
         :return: this
-        :rtype: UpdateItemRequest
+        :rtype: UpdateItemMasterRequest
         """
-        self.set_acquisition_inventory_trigger_script(acquisition_inventory_trigger_script)
+        self.set_acquisition_item_trigger_script(acquisition_item_trigger_script)
         return self
 
-    def get_acquisition_inventory_done_trigger_script(self):
+    def get_acquisition_item_done_trigger_script(self):
         """
         アイテム入手完了時 に実行されるGS2-Scriptを取得
         :return: アイテム入手完了時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__acquisition_inventory_done_trigger_script
+        return self.__acquisition_item_done_trigger_script
 
-    def set_acquisition_inventory_done_trigger_script(self, acquisition_inventory_done_trigger_script):
+    def set_acquisition_item_done_trigger_script(self, acquisition_item_done_trigger_script):
         """
         アイテム入手完了時 に実行されるGS2-Scriptを設定
-        :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
-        :type acquisition_inventory_done_trigger_script: unicode
+        :param acquisition_item_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
+        :type acquisition_item_done_trigger_script: unicode
         """
-        if acquisition_inventory_done_trigger_script and not (isinstance(acquisition_inventory_done_trigger_script, str) or isinstance(acquisition_inventory_done_trigger_script, unicode)):
-            raise TypeError(type(acquisition_inventory_done_trigger_script))
-        self.__acquisition_inventory_done_trigger_script = acquisition_inventory_done_trigger_script
+        if acquisition_item_done_trigger_script and not (isinstance(acquisition_item_done_trigger_script, str) or isinstance(acquisition_item_done_trigger_script, unicode)):
+            raise TypeError(type(acquisition_item_done_trigger_script))
+        self.__acquisition_item_done_trigger_script = acquisition_item_done_trigger_script
 
-    def with_acquisition_inventory_done_trigger_script(self, acquisition_inventory_done_trigger_script):
+    def with_acquisition_item_done_trigger_script(self, acquisition_item_done_trigger_script):
         """
         アイテム入手完了時 に実行されるGS2-Scriptを設定
-        :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
-        :type acquisition_inventory_done_trigger_script: unicode
+        :param acquisition_item_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
+        :type acquisition_item_done_trigger_script: unicode
         :return: this
-        :rtype: UpdateItemRequest
+        :rtype: UpdateItemMasterRequest
         """
-        self.set_acquisition_inventory_done_trigger_script(acquisition_inventory_done_trigger_script)
+        self.set_acquisition_item_done_trigger_script(acquisition_item_done_trigger_script)
         return self
 
-    def get_consume_inventory_trigger_script(self):
+    def get_consume_item_trigger_script(self):
         """
         アイテム消費時 に実行されるGS2-Scriptを取得
         :return: アイテム消費時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__consume_inventory_trigger_script
+        return self.__consume_item_trigger_script
 
-    def set_consume_inventory_trigger_script(self, consume_inventory_trigger_script):
+    def set_consume_item_trigger_script(self, consume_item_trigger_script):
         """
         アイテム消費時 に実行されるGS2-Scriptを設定
-        :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
-        :type consume_inventory_trigger_script: unicode
+        :param consume_item_trigger_script: アイテム消費時 に実行されるGS2-Script
+        :type consume_item_trigger_script: unicode
         """
-        if consume_inventory_trigger_script and not (isinstance(consume_inventory_trigger_script, str) or isinstance(consume_inventory_trigger_script, unicode)):
-            raise TypeError(type(consume_inventory_trigger_script))
-        self.__consume_inventory_trigger_script = consume_inventory_trigger_script
+        if consume_item_trigger_script and not (isinstance(consume_item_trigger_script, str) or isinstance(consume_item_trigger_script, unicode)):
+            raise TypeError(type(consume_item_trigger_script))
+        self.__consume_item_trigger_script = consume_item_trigger_script
 
-    def with_consume_inventory_trigger_script(self, consume_inventory_trigger_script):
+    def with_consume_item_trigger_script(self, consume_item_trigger_script):
         """
         アイテム消費時 に実行されるGS2-Scriptを設定
-        :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
-        :type consume_inventory_trigger_script: unicode
+        :param consume_item_trigger_script: アイテム消費時 に実行されるGS2-Script
+        :type consume_item_trigger_script: unicode
         :return: this
-        :rtype: UpdateItemRequest
+        :rtype: UpdateItemMasterRequest
         """
-        self.set_consume_inventory_trigger_script(consume_inventory_trigger_script)
+        self.set_consume_item_trigger_script(consume_item_trigger_script)
         return self
 
-    def get_consume_inventory_done_trigger_script(self):
+    def get_consume_item_done_trigger_script(self):
         """
         アイテム消費完了時 に実行されるGS2-Scriptを取得
         :return: アイテム消費完了時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__consume_inventory_done_trigger_script
+        return self.__consume_item_done_trigger_script
 
-    def set_consume_inventory_done_trigger_script(self, consume_inventory_done_trigger_script):
+    def set_consume_item_done_trigger_script(self, consume_item_done_trigger_script):
         """
         アイテム消費完了時 に実行されるGS2-Scriptを設定
-        :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
-        :type consume_inventory_done_trigger_script: unicode
+        :param consume_item_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
+        :type consume_item_done_trigger_script: unicode
         """
-        if consume_inventory_done_trigger_script and not (isinstance(consume_inventory_done_trigger_script, str) or isinstance(consume_inventory_done_trigger_script, unicode)):
-            raise TypeError(type(consume_inventory_done_trigger_script))
-        self.__consume_inventory_done_trigger_script = consume_inventory_done_trigger_script
+        if consume_item_done_trigger_script and not (isinstance(consume_item_done_trigger_script, str) or isinstance(consume_item_done_trigger_script, unicode)):
+            raise TypeError(type(consume_item_done_trigger_script))
+        self.__consume_item_done_trigger_script = consume_item_done_trigger_script
 
-    def with_consume_inventory_done_trigger_script(self, consume_inventory_done_trigger_script):
+    def with_consume_item_done_trigger_script(self, consume_item_done_trigger_script):
         """
         アイテム消費完了時 に実行されるGS2-Scriptを設定
-        :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
-        :type consume_inventory_done_trigger_script: unicode
+        :param consume_item_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
+        :type consume_item_done_trigger_script: unicode
         :return: this
-        :rtype: UpdateItemRequest
+        :rtype: UpdateItemMasterRequest
         """
-        self.set_consume_inventory_done_trigger_script(consume_inventory_done_trigger_script)
+        self.set_consume_item_done_trigger_script(consume_item_done_trigger_script)
         return self

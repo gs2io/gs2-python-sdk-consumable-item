@@ -18,10 +18,10 @@ from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class DescribeItemRequest(Gs2BasicRequest):
+class DeleteItemMasterRequest(Gs2BasicRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "DescribeItem"
+        FUNCTION = "DeleteItemMaster"
 
     def __init__(self, params=None):
         """
@@ -29,19 +29,15 @@ class DescribeItemRequest(Gs2BasicRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(DescribeItemRequest, self).__init__(params)
+        super(DeleteItemMasterRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
         else:
             self.set_item_pool_name(params['itemPoolName'] if 'itemPoolName' in params.keys() else None)
         if params is None:
-            self.__page_token = None
+            self.__item_name = None
         else:
-            self.set_page_token(params['pageToken'] if 'pageToken' in params.keys() else None)
-        if params is None:
-            self.__limit = None
-        else:
-            self.set_limit(params['limit'] if 'limit' in params.keys() else None)
+            self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
 
     def get_item_pool_name(self):
         """
@@ -67,65 +63,36 @@ class DescribeItemRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: DescribeItemRequest
+        :rtype: DeleteItemMasterRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
 
-    def get_page_token(self):
+    def get_item_name(self):
         """
-        データの取得を開始する位置を指定するトークンを取得
-        :return: データの取得を開始する位置を指定するトークン
+        消費型アイテムの名前を取得
+        :return: 消費型アイテムの名前
         :rtype: unicode
         """
-        return self.__page_token
+        return self.__item_name
 
-    def set_page_token(self, page_token):
+    def set_item_name(self, item_name):
         """
-        データの取得を開始する位置を指定するトークンを設定
-        :param page_token: データの取得を開始する位置を指定するトークン
-        :type page_token: unicode
+        消費型アイテムの名前を設定
+        :param item_name: 消費型アイテムの名前
+        :type item_name: unicode
         """
-        if page_token and not (isinstance(page_token, str) or isinstance(page_token, unicode)):
-            raise TypeError(type(page_token))
-        self.__page_token = page_token
+        if item_name and not (isinstance(item_name, str) or isinstance(item_name, unicode)):
+            raise TypeError(type(item_name))
+        self.__item_name = item_name
 
-    def with_page_token(self, page_token):
+    def with_item_name(self, item_name):
         """
-        データの取得を開始する位置を指定するトークンを設定
-        :param page_token: データの取得を開始する位置を指定するトークン
-        :type page_token: unicode
+        消費型アイテムの名前を設定
+        :param item_name: 消費型アイテムの名前
+        :type item_name: unicode
         :return: this
-        :rtype: DescribeItemRequest
+        :rtype: DeleteItemMasterRequest
         """
-        self.set_page_token(page_token)
-        return self
-
-    def get_limit(self):
-        """
-        データの取得件数を取得
-        :return: データの取得件数
-        :rtype: int
-        """
-        return self.__limit
-
-    def set_limit(self, limit):
-        """
-        データの取得件数を設定
-        :param limit: データの取得件数
-        :type limit: int
-        """
-        if limit and not isinstance(limit, int):
-            raise TypeError(type(limit))
-        self.__limit = limit
-
-    def with_limit(self, limit):
-        """
-        データの取得件数を設定
-        :param limit: データの取得件数
-        :type limit: int
-        :return: this
-        :rtype: DescribeItemRequest
-        """
-        self.set_limit(limit)
+        self.set_item_name(item_name)
         return self

@@ -17,7 +17,7 @@
 from gs2_consumable_item_client.model import *
 
 
-class DescribeItemResult(object):
+class DescribeItemMasterResult(object):
 
     def __init__(self, response):
         """
@@ -28,7 +28,7 @@ class DescribeItemResult(object):
         self.__items = list(
             map(
                 lambda data:
-                Item(data),
+                ItemMaster(data),
                 response['items']
             )
         )
@@ -37,7 +37,7 @@ class DescribeItemResult(object):
         """
         消費型アイテムを取得
         :return: 消費型アイテム
-        :rtype: list[Item]
+        :rtype: list[ItemMaster]
         """
         return self.__items
     def get_next_page_token(self):
@@ -52,7 +52,7 @@ class DescribeItemResult(object):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(DescribeItemResult, self).__getitem__(key)
+        return super(DescribeItemMasterResult, self).__getitem__(key)
 
     def to_dict(self):
         """

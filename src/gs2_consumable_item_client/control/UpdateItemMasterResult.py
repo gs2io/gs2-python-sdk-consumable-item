@@ -17,7 +17,7 @@
 from gs2_consumable_item_client.model import *
 
 
-class ConsumeInventoryByStampTaskResult(object):
+class UpdateItemMasterResult(object):
 
     def __init__(self, response):
         """
@@ -25,12 +25,12 @@ class ConsumeInventoryByStampTaskResult(object):
         :type response: レスポンスボディ
         :type response: dict
         """
-        self.__item = Inventory(response['item']) if 'item' in response.keys() and response['item'] is not None else None
+        self.__item = ItemMaster(response['item']) if 'item' in response.keys() and response['item'] is not None else None
     def get_item(self):
         """
-        所持品を取得
-        :return: 所持品
-        :rtype: Inventory
+        消費型アイテムを取得
+        :return: 消費型アイテム
+        :rtype: ItemMaster
         """
         return self.__item
 
@@ -38,7 +38,7 @@ class ConsumeInventoryByStampTaskResult(object):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(ConsumeInventoryByStampTaskResult, self).__getitem__(key)
+        return super(UpdateItemMasterResult, self).__getitem__(key)
 
     def to_dict(self):
         """

@@ -18,10 +18,10 @@ from gs2_core_client.Gs2UserRequest import Gs2UserRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class ConsumeMyInventoryRequest(Gs2UserRequest):
+class ConsumeItemRequest(Gs2UserRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "ConsumeMyInventory"
+        FUNCTION = "ConsumeItem"
 
     def __init__(self, params=None):
         """
@@ -29,7 +29,7 @@ class ConsumeMyInventoryRequest(Gs2UserRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(ConsumeMyInventoryRequest, self).__init__(params)
+        super(ConsumeItemRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
             self.__item_name = None
@@ -63,7 +63,7 @@ class ConsumeMyInventoryRequest(Gs2UserRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: ConsumeMyInventoryRequest
+        :rtype: ConsumeItemRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
@@ -92,7 +92,7 @@ class ConsumeMyInventoryRequest(Gs2UserRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         :return: this
-        :rtype: ConsumeMyInventoryRequest
+        :rtype: ConsumeItemRequest
         """
         self.set_item_name(item_name)
         return self
@@ -121,7 +121,7 @@ class ConsumeMyInventoryRequest(Gs2UserRequest):
         :param count: 消費数量
         :type count: int
         :return: this
-        :rtype: ConsumeMyInventoryRequest
+        :rtype: ConsumeItemRequest
         """
         self.set_count(count)
         return self

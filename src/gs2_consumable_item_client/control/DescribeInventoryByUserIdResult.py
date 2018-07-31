@@ -17,7 +17,7 @@
 from gs2_consumable_item_client.model import *
 
 
-class ConsumeMyInventoryResult(object):
+class DescribeInventoryByUserIdResult(object):
 
     def __init__(self, response):
         """
@@ -25,20 +25,34 @@ class ConsumeMyInventoryResult(object):
         :type response: レスポンスボディ
         :type response: dict
         """
-        self.__item = Inventory(response['item']) if 'item' in response.keys() and response['item'] is not None else None
-    def get_item(self):
+        self.__items = list(
+            map(
+                lambda data:
+                Inventory(data),
+                response['items']
+            )
+        )
+        self.__next_page_token = unicode(response['nextPageToken']) if 'nextPageToken' in response.keys() and response['nextPageToken'] is not None else None
+    def get_items(self):
         """
         所持品を取得
         :return: 所持品
-        :rtype: Inventory
+        :rtype: list[Inventory]
         """
-        return self.__item
+        return self.__items
+    def get_next_page_token(self):
+        """
+        次のページを読み込むためのトークンを取得
+        :return: 次のページを読み込むためのトークン
+        :rtype: unicode
+        """
+        return self.__next_page_token
 
     def __getitem__(self, key):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(ConsumeMyInventoryResult, self).__getitem__(key)
+        return super(DescribeInventoryByUserIdResult, self).__getitem__(key)
 
     def to_dict(self):
         """
@@ -47,5 +61,6 @@ class ConsumeMyInventoryResult(object):
         :rtype: dict
         """
         return {
-            'item': self.__item.to_dict(),
+            'items': map(lambda item: item.to_dict(), self.__items),
+            'nextPageToken': self.__next_page_token,
         }

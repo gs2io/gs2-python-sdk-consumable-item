@@ -15,29 +15,27 @@
 # permissions and limitations under the License.
 
 
-class Item(object):
+class ItemMaster(object):
 
     def __init__(self, params=None):
         if params is None:
             self.__item_id = None
-            self.__item_pool_id = None
             self.__name = None
             self.__max = None
-            self.__acquisition_inventory_trigger_script = None
-            self.__acquisition_inventory_done_trigger_script = None
-            self.__consume_inventory_trigger_script = None
-            self.__consume_inventory_done_trigger_script = None
+            self.__acquisition_item_trigger_script = None
+            self.__acquisition_item_done_trigger_script = None
+            self.__consume_item_trigger_script = None
+            self.__consume_item_done_trigger_script = None
             self.__create_at = None
             self.__update_at = None
         else:
             self.set_item_id(params['itemId'] if 'itemId' in params.keys() else None)
-            self.set_item_pool_id(params['itemPoolId'] if 'itemPoolId' in params.keys() else None)
             self.set_name(params['name'] if 'name' in params.keys() else None)
             self.set_max(params['max'] if 'max' in params.keys() else None)
-            self.set_acquisition_inventory_trigger_script(params['acquisitionInventoryTriggerScript'] if 'acquisitionInventoryTriggerScript' in params.keys() else None)
-            self.set_acquisition_inventory_done_trigger_script(params['acquisitionInventoryDoneTriggerScript'] if 'acquisitionInventoryDoneTriggerScript' in params.keys() else None)
-            self.set_consume_inventory_trigger_script(params['consumeInventoryTriggerScript'] if 'consumeInventoryTriggerScript' in params.keys() else None)
-            self.set_consume_inventory_done_trigger_script(params['consumeInventoryDoneTriggerScript'] if 'consumeInventoryDoneTriggerScript' in params.keys() else None)
+            self.set_acquisition_item_trigger_script(params['acquisitionItemTriggerScript'] if 'acquisitionItemTriggerScript' in params.keys() else None)
+            self.set_acquisition_item_done_trigger_script(params['acquisitionItemDoneTriggerScript'] if 'acquisitionItemDoneTriggerScript' in params.keys() else None)
+            self.set_consume_item_trigger_script(params['consumeItemTriggerScript'] if 'consumeItemTriggerScript' in params.keys() else None)
+            self.set_consume_item_done_trigger_script(params['consumeItemDoneTriggerScript'] if 'consumeItemDoneTriggerScript' in params.keys() else None)
             self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
             self.set_update_at(params['updateAt'] if 'updateAt' in params.keys() else None)
 
@@ -56,22 +54,6 @@ class Item(object):
         :type item_id: unicode
         """
         self.__item_id = item_id
-
-    def get_item_pool_id(self):
-        """
-        消費型アイテムプールIDを取得
-        :return: 消費型アイテムプールID
-        :rtype: unicode
-        """
-        return self.__item_pool_id
-
-    def set_item_pool_id(self, item_pool_id):
-        """
-        消費型アイテムプールIDを設定
-        :param item_pool_id: 消費型アイテムプールID
-        :type item_pool_id: unicode
-        """
-        self.__item_pool_id = item_pool_id
 
     def get_name(self):
         """
@@ -105,69 +87,69 @@ class Item(object):
         """
         self.__max = max
 
-    def get_acquisition_inventory_trigger_script(self):
+    def get_acquisition_item_trigger_script(self):
         """
         アイテム入手時 に実行されるGS2-Scriptを取得
         :return: アイテム入手時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__acquisition_inventory_trigger_script
+        return self.__acquisition_item_trigger_script
 
-    def set_acquisition_inventory_trigger_script(self, acquisition_inventory_trigger_script):
+    def set_acquisition_item_trigger_script(self, acquisition_item_trigger_script):
         """
         アイテム入手時 に実行されるGS2-Scriptを設定
-        :param acquisition_inventory_trigger_script: アイテム入手時 に実行されるGS2-Script
-        :type acquisition_inventory_trigger_script: unicode
+        :param acquisition_item_trigger_script: アイテム入手時 に実行されるGS2-Script
+        :type acquisition_item_trigger_script: unicode
         """
-        self.__acquisition_inventory_trigger_script = acquisition_inventory_trigger_script
+        self.__acquisition_item_trigger_script = acquisition_item_trigger_script
 
-    def get_acquisition_inventory_done_trigger_script(self):
+    def get_acquisition_item_done_trigger_script(self):
         """
         アイテム入手完了時 に実行されるGS2-Scriptを取得
         :return: アイテム入手完了時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__acquisition_inventory_done_trigger_script
+        return self.__acquisition_item_done_trigger_script
 
-    def set_acquisition_inventory_done_trigger_script(self, acquisition_inventory_done_trigger_script):
+    def set_acquisition_item_done_trigger_script(self, acquisition_item_done_trigger_script):
         """
         アイテム入手完了時 に実行されるGS2-Scriptを設定
-        :param acquisition_inventory_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
-        :type acquisition_inventory_done_trigger_script: unicode
+        :param acquisition_item_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
+        :type acquisition_item_done_trigger_script: unicode
         """
-        self.__acquisition_inventory_done_trigger_script = acquisition_inventory_done_trigger_script
+        self.__acquisition_item_done_trigger_script = acquisition_item_done_trigger_script
 
-    def get_consume_inventory_trigger_script(self):
+    def get_consume_item_trigger_script(self):
         """
         アイテム消費時 に実行されるGS2-Scriptを取得
         :return: アイテム消費時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__consume_inventory_trigger_script
+        return self.__consume_item_trigger_script
 
-    def set_consume_inventory_trigger_script(self, consume_inventory_trigger_script):
+    def set_consume_item_trigger_script(self, consume_item_trigger_script):
         """
         アイテム消費時 に実行されるGS2-Scriptを設定
-        :param consume_inventory_trigger_script: アイテム消費時 に実行されるGS2-Script
-        :type consume_inventory_trigger_script: unicode
+        :param consume_item_trigger_script: アイテム消費時 に実行されるGS2-Script
+        :type consume_item_trigger_script: unicode
         """
-        self.__consume_inventory_trigger_script = consume_inventory_trigger_script
+        self.__consume_item_trigger_script = consume_item_trigger_script
 
-    def get_consume_inventory_done_trigger_script(self):
+    def get_consume_item_done_trigger_script(self):
         """
         アイテム消費完了時 に実行されるGS2-Scriptを取得
         :return: アイテム消費完了時 に実行されるGS2-Script
         :rtype: unicode
         """
-        return self.__consume_inventory_done_trigger_script
+        return self.__consume_item_done_trigger_script
 
-    def set_consume_inventory_done_trigger_script(self, consume_inventory_done_trigger_script):
+    def set_consume_item_done_trigger_script(self, consume_item_done_trigger_script):
         """
         アイテム消費完了時 に実行されるGS2-Scriptを設定
-        :param consume_inventory_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
-        :type consume_inventory_done_trigger_script: unicode
+        :param consume_item_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
+        :type consume_item_done_trigger_script: unicode
         """
-        self.__consume_inventory_done_trigger_script = consume_inventory_done_trigger_script
+        self.__consume_item_done_trigger_script = consume_item_done_trigger_script
 
     def get_create_at(self):
         """
@@ -205,18 +187,17 @@ class Item(object):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(Item, self).__getitem__(key)
+        return super(ItemMaster, self).__getitem__(key)
 
     def to_dict(self):
         return {
             "itemId": self.__item_id,
-            "itemPoolId": self.__item_pool_id,
             "name": self.__name,
             "max": self.__max,
-            "acquisitionInventoryTriggerScript": self.__acquisition_inventory_trigger_script,
-            "acquisitionInventoryDoneTriggerScript": self.__acquisition_inventory_done_trigger_script,
-            "consumeInventoryTriggerScript": self.__consume_inventory_trigger_script,
-            "consumeInventoryDoneTriggerScript": self.__consume_inventory_done_trigger_script,
+            "acquisitionItemTriggerScript": self.__acquisition_item_trigger_script,
+            "acquisitionItemDoneTriggerScript": self.__acquisition_item_done_trigger_script,
+            "consumeItemTriggerScript": self.__consume_item_trigger_script,
+            "consumeItemDoneTriggerScript": self.__consume_item_done_trigger_script,
             "createAt": self.__create_at,
             "updateAt": self.__update_at,
         }

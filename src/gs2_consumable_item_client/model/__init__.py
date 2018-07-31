@@ -1,3 +1,3 @@
 from ItemPool import ItemPool
-from Item import Item
+from ItemMaster import ItemMaster
 from Inventory import Inventory

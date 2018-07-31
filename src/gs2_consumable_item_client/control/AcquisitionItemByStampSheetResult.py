@@ -17,7 +17,7 @@
 from gs2_consumable_item_client.model import *
 
 
-class AcquisitionInventoryByStampSheetResult(object):
+class AcquisitionItemByStampSheetResult(object):
 
     def __init__(self, response):
         """
@@ -38,7 +38,7 @@ class AcquisitionInventoryByStampSheetResult(object):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(AcquisitionInventoryByStampSheetResult, self).__getitem__(key)
+        return super(AcquisitionItemByStampSheetResult, self).__getitem__(key)
 
     def to_dict(self):
         """

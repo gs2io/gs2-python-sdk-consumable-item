@@ -17,7 +17,7 @@
 from gs2_consumable_item_client.model import *
 
 
-class CreateItemResult(object):
+class GetCurrentItemMasterResult(object):
 
     def __init__(self, response):
         """
@@ -25,12 +25,12 @@ class CreateItemResult(object):
         :type response: レスポンスボディ
         :type response: dict
         """
-        self.__item = Item(response['item']) if 'item' in response.keys() and response['item'] is not None else None
+        self.__item = unicode(response['item']) if 'item' in response.keys() and response['item'] is not None else None
     def get_item(self):
         """
-        消費型アイテムを取得
-        :return: 消費型アイテム
-        :rtype: Item
+        現在適用されているアイテムマスターデータを取得
+        :return: 現在適用されているアイテムマスターデータ
+        :rtype: unicode
         """
         return self.__item
 
@@ -38,7 +38,7 @@ class CreateItemResult(object):
         items = self.to_dict()
         if key in items.keys():
             return items[key]
-        return super(CreateItemResult, self).__getitem__(key)
+        return super(GetCurrentItemMasterResult, self).__getitem__(key)
 
     def to_dict(self):
         """
@@ -47,5 +47,5 @@ class CreateItemResult(object):
         :rtype: dict
         """
         return {
-            'item': self.__item.to_dict(),
+            'item': self.__item,
         }

@@ -18,10 +18,10 @@ from gs2_core_client.Gs2BasicRequest import Gs2BasicRequest
 from gs2_consumable_item_client.Gs2ConsumableItem import Gs2ConsumableItem
 
 
-class AcquisitionInventoryRequest(Gs2BasicRequest):
+class GetInventoryByUserIdRequest(Gs2BasicRequest):
 
     class Constant(Gs2ConsumableItem):
-        FUNCTION = "AcquisitionInventory"
+        FUNCTION = "GetInventoryByUserId"
 
     def __init__(self, params=None):
         """
@@ -29,7 +29,7 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param params: 辞書配列形式のパラメータ初期値リスト
         :type params: dict|None
         """
-        super(AcquisitionInventoryRequest, self).__init__(params)
+        super(GetInventoryByUserIdRequest, self).__init__(params)
         if params is None:
             self.__item_pool_name = None
         else:
@@ -42,10 +42,6 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
             self.__user_id = None
         else:
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
-        if params is None:
-            self.__count = None
-        else:
-            self.set_count(params['count'] if 'count' in params.keys() else None)
 
     def get_item_pool_name(self):
         """
@@ -71,7 +67,7 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         :return: this
-        :rtype: AcquisitionInventoryRequest
+        :rtype: GetInventoryByUserIdRequest
         """
         self.set_item_pool_name(item_pool_name)
         return self
@@ -100,7 +96,7 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         :return: this
-        :rtype: AcquisitionInventoryRequest
+        :rtype: GetInventoryByUserIdRequest
         """
         self.set_item_name(item_name)
         return self
@@ -129,36 +125,7 @@ class AcquisitionInventoryRequest(Gs2BasicRequest):
         :param user_id: ユーザID
         :type user_id: unicode
         :return: this
-        :rtype: AcquisitionInventoryRequest
+        :rtype: GetInventoryByUserIdRequest
         """
         self.set_user_id(user_id)
-        return self
-
-    def get_count(self):
-        """
-        入手数量を取得
-        :return: 入手数量
-        :rtype: int
-        """
-        return self.__count
-
-    def set_count(self, count):
-        """
-        入手数量を設定
-        :param count: 入手数量
-        :type count: int
-        """
-        if count and not isinstance(count, int):
-            raise TypeError(type(count))
-        self.__count = count
-
-    def with_count(self, count):
-        """
-        入手数量を設定
-        :param count: 入手数量
-        :type count: int
-        :return: this
-        :rtype: AcquisitionInventoryRequest
-        """
-        self.set_count(count)
         return self
