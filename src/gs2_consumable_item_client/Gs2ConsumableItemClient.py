@@ -41,17 +41,15 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.GetCurrentItemMasterResult.GetCurrentItemMasterResult
         """
-        query_strings = {
-        }
-        headers = { 
-        }
+        query_strings = {}
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.GetCurrentItemMasterRequest import GetCurrentItemMasterRequest
 
         from gs2_consumable_item_client.control.GetCurrentItemMasterResult import GetCurrentItemMasterResult
         return GetCurrentItemMasterResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/master",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/master",
             service=self.ENDPOINT,
             component=GetCurrentItemMasterRequest.Constant.MODULE,
             target_function=GetCurrentItemMasterRequest.Constant.FUNCTION,
@@ -72,14 +70,13 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             "settings": request.get_settings(),
         }
 
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.UpdateCurrentItemMasterRequest import UpdateCurrentItemMasterRequest
         from gs2_consumable_item_client.control.UpdateCurrentItemMasterResult import UpdateCurrentItemMasterResult
         return UpdateCurrentItemMasterResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/item/master",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/item/master",
             service=self.ENDPOINT,
             component=UpdateCurrentItemMasterRequest.Constant.MODULE,
             target_function=UpdateCurrentItemMasterRequest.Constant.FUNCTION,
@@ -91,11 +88,12 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         """
         インベントリにアイテムを加えます<br>
         <br>
+        有効期限に 0 を設定すると有効期限無しになります。<br>
+        <br>
         アイテムに所持数の上限が設定されている状態で、複数個付与することによって<br>
         所持数の上限を超えてしまうケースでは一切付与せずエラー応答を返します。<br>
         <br>
-        例えば、所持数上限 10 のアイテムで、8個所持しているユーザに 3個 付与しようとすると<br>
-        1個も付与せずにエラーを返します。<br>
+        例えば、所持数上限 10 のアイテムで、8個所持しているユーザに 3個 付与しようとすると1個も付与せずにエラーを返します。<br>
         <br>
         :param request: リクエストパラメータ
         :type request: gs2_consumable_item_client.control.AcquisitionItemRequest.AcquisitionItemRequest
@@ -106,15 +104,17 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             "count": request.get_count(),
         }
 
-        headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
-        }
+        if request.get_expire_at() is not None:
+            body["expireAt"] = request.get_expire_at()
+        headers = {}
+        if request.get_access_token() is not None:
+            headers["X-GS2-ACCESS-TOKEN"] = request.get_access_token()
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.AcquisitionItemRequest import AcquisitionItemRequest
         from gs2_consumable_item_client.control.AcquisitionItemResult import AcquisitionItemResult
         return AcquisitionItemResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=AcquisitionItemRequest.Constant.MODULE,
             target_function=AcquisitionItemRequest.Constant.FUNCTION,
@@ -136,9 +136,9 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             "keyName": request.get_key_name(),
         }
 
-        headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
-        }
+        headers = {}
+        if request.get_access_token() is not None:
+            headers["X-GS2-ACCESS-TOKEN"] = request.get_access_token()
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.AcquisitionItemByStampSheetRequest import AcquisitionItemByStampSheetRequest
@@ -156,6 +156,8 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         """
         インベントリにアイテムを加えます<br>
         <br>
+        有効期限に 0 を設定すると有効期限無しになります。<br>
+        <br>
         アイテムに所持数の上限が設定されている状態で、複数個付与することによって<br>
         所持数の上限を超えてしまうケースでは一切付与せずエラー応答を返します。<br>
         <br>
@@ -171,14 +173,15 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             "count": request.get_count(),
         }
 
-        headers = { 
-        }
+        if request.get_expire_at() is not None:
+            body["expireAt"] = request.get_expire_at()
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.AcquisitionItemByUserIdRequest import AcquisitionItemByUserIdRequest
         from gs2_consumable_item_client.control.AcquisitionItemByUserIdResult import AcquisitionItemByUserIdResult
         return AcquisitionItemByUserIdResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=AcquisitionItemByUserIdRequest.Constant.MODULE,
             target_function=AcquisitionItemByUserIdRequest.Constant.FUNCTION,
@@ -190,6 +193,9 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         """
         インベントリのアイテムを消費します<br>
         <br>
+        expireAt を指定しない場合は有効期限内の所有するアイテムの中から有効期限の近いアイテムから消費します。<br>
+        ただし、この場合有効期限内の所有するアイテムの数量倍クォーターを消費します。<br>
+        <br>
         :param request: リクエストパラメータ
         :type request: gs2_consumable_item_client.control.ConsumeItemRequest.ConsumeItemRequest
         :return: 結果
@@ -198,15 +204,17 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         body = { 
             "count": request.get_count(),
         }
-        headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
-        }
+        if request.get_expire_at() is not None:
+            body["expireAt"] = request.get_expire_at()
+        headers = {}
+        if request.get_access_token() is not None:
+            headers["X-GS2-ACCESS-TOKEN"] = request.get_access_token()
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.ConsumeItemRequest import ConsumeItemRequest
         from gs2_consumable_item_client.control.ConsumeItemResult import ConsumeItemResult
         return ConsumeItemResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=ConsumeItemRequest.Constant.MODULE,
             target_function=ConsumeItemRequest.Constant.FUNCTION,
@@ -228,9 +236,9 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             "keyName": request.get_key_name(),
             "transactionId": request.get_transaction_id(),
         }
-        headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
-        }
+        headers = {}
+        if request.get_access_token() is not None:
+            headers["X-GS2-ACCESS-TOKEN"] = request.get_access_token()
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.ConsumeItemByStampTaskRequest import ConsumeItemByStampTaskRequest
@@ -248,6 +256,9 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         """
         インベントリのアイテムを消費します<br>
         <br>
+        expireAt を指定しない場合は有効期限内の所有するアイテムの中から有効期限の近いアイテムから消費します。<br>
+        ただし、この場合クォーターを有効期限内の所有するアイテムの数量倍消費します。<br>
+        <br>
         :param request: リクエストパラメータ
         :type request: gs2_consumable_item_client.control.ConsumeItemByUserIdRequest.ConsumeItemByUserIdRequest
         :return: 結果
@@ -256,14 +267,15 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         body = { 
             "count": request.get_count(),
         }
-        headers = { 
-        }
+        if request.get_expire_at() is not None:
+            body["expireAt"] = request.get_expire_at()
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.ConsumeItemByUserIdRequest import ConsumeItemByUserIdRequest
         from gs2_consumable_item_client.control.ConsumeItemByUserIdResult import ConsumeItemByUserIdResult
         return ConsumeItemByUserIdResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=ConsumeItemByUserIdRequest.Constant.MODULE,
             target_function=ConsumeItemByUserIdRequest.Constant.FUNCTION,
@@ -279,13 +291,12 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :type request: gs2_consumable_item_client.control.DeleteInventoryByUserIdRequest.DeleteInventoryByUserIdRequest
         """
         query_strings = {}
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DeleteInventoryByUserIdRequest import DeleteInventoryByUserIdRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "/" + str(("null" if request.get_expire_at() is None or request.get_expire_at() == "" else request.get_expire_at())) + "",
             service=self.ENDPOINT,
             component=DeleteInventoryByUserIdRequest.Constant.MODULE,
             target_function=DeleteInventoryByUserIdRequest.Constant.FUNCTION,
@@ -301,20 +312,21 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.DescribeInventoryResult.DescribeInventoryResult
         """
-        query_strings = {
-            'pageToken': request.get_page_token(),
-            'limit': request.get_limit(),
-        }
-        headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
-        }
+        query_strings = {}
+        if request.get_page_token() is not None:
+            query_strings['pageToken'] = request.get_page_token()
+        if request.get_limit() is not None:
+            query_strings['limit'] = request.get_limit()
+        headers = {}
+        if request.get_access_token() is not None:
+            headers["X-GS2-ACCESS-TOKEN"] = request.get_access_token()
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DescribeInventoryRequest import DescribeInventoryRequest
 
         from gs2_consumable_item_client.control.DescribeInventoryResult import DescribeInventoryResult
         return DescribeInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/my",
             service=self.ENDPOINT,
             component=DescribeInventoryRequest.Constant.MODULE,
             target_function=DescribeInventoryRequest.Constant.FUNCTION,
@@ -330,19 +342,19 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.DescribeInventoryByUserIdResult.DescribeInventoryByUserIdResult
         """
-        query_strings = {
-            'pageToken': request.get_page_token(),
-            'limit': request.get_limit(),
-        }
-        headers = { 
-        }
+        query_strings = {}
+        if request.get_page_token() is not None:
+            query_strings['pageToken'] = request.get_page_token()
+        if request.get_limit() is not None:
+            query_strings['limit'] = request.get_limit()
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DescribeInventoryByUserIdRequest import DescribeInventoryByUserIdRequest
 
         from gs2_consumable_item_client.control.DescribeInventoryByUserIdResult import DescribeInventoryByUserIdResult
         return DescribeInventoryByUserIdResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "",
             service=self.ENDPOINT,
             component=DescribeInventoryByUserIdRequest.Constant.MODULE,
             target_function=DescribeInventoryByUserIdRequest.Constant.FUNCTION,
@@ -353,23 +365,32 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
     def get_inventory(self, request):
         """
         インベントリの内容を取得します<br>
+        <br>
+        expireAt を指定しない場合は有効期限内の所有するアイテムの数量を丸めて応答します。<br>
+        有効期限には0が設定されて応答されますので、有効期限が存在するかどうかを判別することもできなくなります。<br>
+        <br>
+        また、expireAt を指定しない場合は処理時間が expireAt を指定しない場合を指定する場合と比較して長くなります。<br>
+        全ての消費型アイテムが有効期限を持たないアイテムで構成される場合は、有効期限に0を設定すると有効期限の無いアイテムとして管理されますので、そちらを利用してください。<br>
+        <br>
+        expireAt を指定しない場合は有効期限内の所有するアイテムの数量倍クォーターを消費します。<br>
         <br>:param request: リクエストパラメータ
         :type request: gs2_consumable_item_client.control.GetInventoryRequest.GetInventoryRequest
         :return: 結果
         :rtype: gs2_consumable_item_client.control.GetInventoryResult.GetInventoryResult
         """
-        query_strings = {
-        }
-        headers = { 
-            "X-GS2-ACCESS-TOKEN": request.get_access_token()
-        }
+        query_strings = {}
+        if request.get_expire_at() is not None:
+            query_strings['expireAt'] = request.get_expire_at()
+        headers = {}
+        if request.get_access_token() is not None:
+            headers["X-GS2-ACCESS-TOKEN"] = request.get_access_token()
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.GetInventoryRequest import GetInventoryRequest
 
         from gs2_consumable_item_client.control.GetInventoryResult import GetInventoryResult
         return GetInventoryResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/my/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=GetInventoryRequest.Constant.MODULE,
             target_function=GetInventoryRequest.Constant.FUNCTION,
@@ -380,22 +401,30 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
     def get_inventory_by_user_id(self, request):
         """
         インベントリの内容を取得します<br>
+        <br>
+        expireAt を指定しない場合は有効期限内の所有するアイテムの数量を丸めて応答します。<br>
+        有効期限には0が設定されて応答されますので、有効期限が存在するかどうかを判別することもできなくなります。<br>
+        <br>
+        また、expireAt を指定しない場合は処理時間が expireAt を指定しない場合を指定する場合と比較して長くなります。<br>
+        全ての消費型アイテムが有効期限を持たないアイテムで構成される場合は、有効期限に0を設定すると有効期限の無いアイテムとして管理されますので、そちらを利用してください。<br>
+        <br>
+        expireAt を指定しない場合は有効期限内の所有するアイテムの数量倍クォーターを消費します。<br>
         <br>:param request: リクエストパラメータ
         :type request: gs2_consumable_item_client.control.GetInventoryByUserIdRequest.GetInventoryByUserIdRequest
         :return: 結果
         :rtype: gs2_consumable_item_client.control.GetInventoryByUserIdResult.GetInventoryByUserIdResult
         """
-        query_strings = {
-        }
-        headers = { 
-        }
+        query_strings = {}
+        if request.get_expire_at() is not None:
+            query_strings['expireAt'] = request.get_expire_at()
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.GetInventoryByUserIdRequest import GetInventoryByUserIdRequest
 
         from gs2_consumable_item_client.control.GetInventoryByUserIdResult import GetInventoryByUserIdResult
         return GetInventoryByUserIdResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else url_encoder.encode(request.get_user_id()))) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/inventory/user/" + str(("null" if request.get_user_id() is None or request.get_user_id() == "" else request.get_user_id())) + "/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=GetInventoryByUserIdRequest.Constant.MODULE,
             target_function=GetInventoryByUserIdRequest.Constant.FUNCTION,
@@ -426,14 +455,13 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
         if request.get_consume_item_done_trigger_script() is not None:
             body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.CreateItemMasterRequest import CreateItemMasterRequest
         from gs2_consumable_item_client.control.CreateItemMasterResult import CreateItemMasterResult
         return CreateItemMasterResult(self._do_post_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/master/item",
             service=self.ENDPOINT,
             component=CreateItemMasterRequest.Constant.MODULE,
             target_function=CreateItemMasterRequest.Constant.FUNCTION,
@@ -454,13 +482,12 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :type request: gs2_consumable_item_client.control.DeleteItemMasterRequest.DeleteItemMasterRequest
         """
         query_strings = {}
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DeleteItemMasterRequest import DeleteItemMasterRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=DeleteItemMasterRequest.Constant.MODULE,
             target_function=DeleteItemMasterRequest.Constant.FUNCTION,
@@ -476,19 +503,19 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.DescribeItemMasterResult.DescribeItemMasterResult
         """
-        query_strings = {
-            'pageToken': request.get_page_token(),
-            'limit': request.get_limit(),
-        }
-        headers = { 
-        }
+        query_strings = {}
+        if request.get_page_token() is not None:
+            query_strings['pageToken'] = request.get_page_token()
+        if request.get_limit() is not None:
+            query_strings['limit'] = request.get_limit()
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DescribeItemMasterRequest import DescribeItemMasterRequest
 
         from gs2_consumable_item_client.control.DescribeItemMasterResult import DescribeItemMasterResult
         return DescribeItemMasterResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/master/item",
             service=self.ENDPOINT,
             component=DescribeItemMasterRequest.Constant.MODULE,
             target_function=DescribeItemMasterRequest.Constant.FUNCTION,
@@ -504,17 +531,15 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.GetItemMasterResult.GetItemMasterResult
         """
-        query_strings = {
-        }
-        headers = { 
-        }
+        query_strings = {}
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.GetItemMasterRequest import GetItemMasterRequest
 
         from gs2_consumable_item_client.control.GetItemMasterResult import GetItemMasterResult
         return GetItemMasterResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=GetItemMasterRequest.Constant.MODULE,
             target_function=GetItemMasterRequest.Constant.FUNCTION,
@@ -542,14 +567,13 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
         if request.get_consume_item_done_trigger_script() is not None:
             body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.UpdateItemMasterRequest import UpdateItemMasterRequest
         from gs2_consumable_item_client.control.UpdateItemMasterResult import UpdateItemMasterResult
         return UpdateItemMasterResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else url_encoder.encode(request.get_item_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/master/item/" + str(("null" if request.get_item_name() is None or request.get_item_name() == "" else request.get_item_name())) + "",
             service=self.ENDPOINT,
             component=UpdateItemMasterRequest.Constant.MODULE,
             target_function=UpdateItemMasterRequest.Constant.FUNCTION,
@@ -581,8 +605,7 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
         if request.get_consume_item_done_trigger_script() is not None:
             body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.CreateItemPoolRequest import CreateItemPoolRequest
@@ -604,13 +627,12 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :type request: gs2_consumable_item_client.control.DeleteItemPoolRequest.DeleteItemPoolRequest
         """
         query_strings = {}
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DeleteItemPoolRequest import DeleteItemPoolRequest
         self._do_delete_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "",
             service=self.ENDPOINT,
             component=DeleteItemPoolRequest.Constant.MODULE,
             target_function=DeleteItemPoolRequest.Constant.FUNCTION,
@@ -626,12 +648,12 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.DescribeItemPoolResult.DescribeItemPoolResult
         """
-        query_strings = {
-            'pageToken': request.get_page_token(),
-            'limit': request.get_limit(),
-        }
-        headers = { 
-        }
+        query_strings = {}
+        if request.get_page_token() is not None:
+            query_strings['pageToken'] = request.get_page_token()
+        if request.get_limit() is not None:
+            query_strings['limit'] = request.get_limit()
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DescribeItemPoolRequest import DescribeItemPoolRequest
@@ -654,10 +676,8 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.DescribeServiceClassResult.DescribeServiceClassResult
         """
-        query_strings = {
-        }
-        headers = { 
-        }
+        query_strings = {}
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.DescribeServiceClassRequest import DescribeServiceClassRequest
@@ -680,17 +700,15 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.GetItemPoolResult.GetItemPoolResult
         """
-        query_strings = {
-        }
-        headers = { 
-        }
+        query_strings = {}
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.GetItemPoolRequest import GetItemPoolRequest
 
         from gs2_consumable_item_client.control.GetItemPoolResult import GetItemPoolResult
         return GetItemPoolResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "",
             service=self.ENDPOINT,
             component=GetItemPoolRequest.Constant.MODULE,
             target_function=GetItemPoolRequest.Constant.FUNCTION,
@@ -706,17 +724,15 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.GetItemPoolStatusResult.GetItemPoolStatusResult
         """
-        query_strings = {
-        }
-        headers = { 
-        }
+        query_strings = {}
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.GetItemPoolStatusRequest import GetItemPoolStatusRequest
 
         from gs2_consumable_item_client.control.GetItemPoolStatusResult import GetItemPoolStatusResult
         return GetItemPoolStatusResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/status",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/status",
             service=self.ENDPOINT,
             component=GetItemPoolStatusRequest.Constant.MODULE,
             target_function=GetItemPoolStatusRequest.Constant.FUNCTION,
@@ -746,14 +762,13 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
             body["consumeItemTriggerScript"] = request.get_consume_item_trigger_script()
         if request.get_consume_item_done_trigger_script() is not None:
             body["consumeItemDoneTriggerScript"] = request.get_consume_item_done_trigger_script()
-        headers = { 
-        }
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.UpdateItemPoolRequest import UpdateItemPoolRequest
         from gs2_consumable_item_client.control.UpdateItemPoolResult import UpdateItemPoolResult
         return UpdateItemPoolResult(self._do_put_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "",
             service=self.ENDPOINT,
             component=UpdateItemPoolRequest.Constant.MODULE,
             target_function=UpdateItemPoolRequest.Constant.FUNCTION,
@@ -769,17 +784,15 @@ class Gs2ConsumableItemClient(AbstractGs2Client):
         :return: 結果
         :rtype: gs2_consumable_item_client.control.ExportMasterResult.ExportMasterResult
         """
-        query_strings = {
-        }
-        headers = { 
-        }
+        query_strings = {}
+        headers = {}
         if request.get_request_id() is not None:
             headers["X-GS2-REQUEST-ID"] = request.get_request_id()
         from gs2_consumable_item_client.control.ExportMasterRequest import ExportMasterRequest
 
         from gs2_consumable_item_client.control.ExportMasterResult import ExportMasterResult
         return ExportMasterResult(self._do_get_request(
-            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else url_encoder.encode(request.get_item_pool_name()))) + "/master",
+            url=Gs2Constant.ENDPOINT_HOST + "/itemPool/" + str(("null" if request.get_item_pool_name() is None or request.get_item_pool_name() == "" else request.get_item_pool_name())) + "/master",
             service=self.ENDPOINT,
             component=ExportMasterRequest.Constant.MODULE,
             target_function=ExportMasterRequest.Constant.FUNCTION,

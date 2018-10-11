@@ -23,6 +23,8 @@ class Inventory(object):
             self.__user_id = None
             self.__item_name = None
             self.__count = None
+            self.__max = None
+            self.__expire_at = None
             self.__create_at = None
             self.__update_at = None
         else:
@@ -30,6 +32,8 @@ class Inventory(object):
             self.set_user_id(params['userId'] if 'userId' in params.keys() else None)
             self.set_item_name(params['itemName'] if 'itemName' in params.keys() else None)
             self.set_count(params['count'] if 'count' in params.keys() else None)
+            self.set_max(params['max'] if 'max' in params.keys() else None)
+            self.set_expire_at(params['expireAt'] if 'expireAt' in params.keys() else None)
             self.set_create_at(params['createAt'] if 'createAt' in params.keys() else None)
             self.set_update_at(params['updateAt'] if 'updateAt' in params.keys() else None)
 
@@ -97,6 +101,38 @@ class Inventory(object):
         """
         self.__count = count
 
+    def get_max(self):
+        """
+        最大所持可能数量を取得
+        :return: 最大所持可能数量
+        :rtype: int
+        """
+        return self.__max
+
+    def set_max(self, max):
+        """
+        最大所持可能数量を設定
+        :param max: 最大所持可能数量
+        :type max: int
+        """
+        self.__max = max
+
+    def get_expire_at(self):
+        """
+        有効期限(エポック秒)を取得
+        :return: 有効期限(エポック秒)
+        :rtype: int
+        """
+        return self.__expire_at
+
+    def set_expire_at(self, expire_at):
+        """
+        有効期限(エポック秒)を設定
+        :param expire_at: 有効期限(エポック秒)
+        :type expire_at: int
+        """
+        self.__expire_at = expire_at
+
     def get_create_at(self):
         """
         作成日時(エポック秒)を取得
@@ -141,6 +177,8 @@ class Inventory(object):
             "userId": self.__user_id,
             "itemName": self.__item_name,
             "count": self.__count,
+            "max": self.__max,
+            "expireAt": self.__expire_at,
             "createAt": self.__create_at,
             "updateAt": self.__update_at,
         }

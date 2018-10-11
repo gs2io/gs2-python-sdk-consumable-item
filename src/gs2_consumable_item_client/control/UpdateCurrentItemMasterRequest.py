@@ -53,7 +53,7 @@ class UpdateCurrentItemMasterRequest(Gs2BasicRequest):
         :param item_pool_name: アイテムプールの名前を指定します。
         :type item_pool_name: unicode
         """
-        if item_pool_name and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
+        if item_pool_name is not None and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
             raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
@@ -82,7 +82,7 @@ class UpdateCurrentItemMasterRequest(Gs2BasicRequest):
         :param settings: アイテムマスターデータ
         :type settings: unicode
         """
-        if settings and not (isinstance(settings, str) or isinstance(settings, unicode)):
+        if settings is not None and not (isinstance(settings, str) or isinstance(settings, unicode)):
             raise TypeError(type(settings))
         self.__settings = settings
 

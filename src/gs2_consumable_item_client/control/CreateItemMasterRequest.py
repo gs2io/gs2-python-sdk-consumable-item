@@ -73,7 +73,7 @@ class CreateItemMasterRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
-        if item_pool_name and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
+        if item_pool_name is not None and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
             raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
@@ -102,7 +102,7 @@ class CreateItemMasterRequest(Gs2BasicRequest):
         :param name: 消費型アイテム名
         :type name: unicode
         """
-        if name and not (isinstance(name, str) or isinstance(name, unicode)):
+        if name is not None and not (isinstance(name, str) or isinstance(name, unicode)):
             raise TypeError(type(name))
         self.__name = name
 
@@ -131,7 +131,7 @@ class CreateItemMasterRequest(Gs2BasicRequest):
         :param max: 最大所持数。
         :type max: int
         """
-        if max and not isinstance(max, int):
+        if max is not None and not isinstance(max, int):
             raise TypeError(type(max))
         self.__max = max
 
@@ -160,7 +160,7 @@ class CreateItemMasterRequest(Gs2BasicRequest):
         :param acquisition_item_trigger_script: アイテム入手時 に実行されるGS2-Script
         :type acquisition_item_trigger_script: unicode
         """
-        if acquisition_item_trigger_script and not (isinstance(acquisition_item_trigger_script, str) or isinstance(acquisition_item_trigger_script, unicode)):
+        if acquisition_item_trigger_script is not None and not (isinstance(acquisition_item_trigger_script, str) or isinstance(acquisition_item_trigger_script, unicode)):
             raise TypeError(type(acquisition_item_trigger_script))
         self.__acquisition_item_trigger_script = acquisition_item_trigger_script
 
@@ -189,7 +189,7 @@ class CreateItemMasterRequest(Gs2BasicRequest):
         :param acquisition_item_done_trigger_script: アイテム入手完了時 に実行されるGS2-Script
         :type acquisition_item_done_trigger_script: unicode
         """
-        if acquisition_item_done_trigger_script and not (isinstance(acquisition_item_done_trigger_script, str) or isinstance(acquisition_item_done_trigger_script, unicode)):
+        if acquisition_item_done_trigger_script is not None and not (isinstance(acquisition_item_done_trigger_script, str) or isinstance(acquisition_item_done_trigger_script, unicode)):
             raise TypeError(type(acquisition_item_done_trigger_script))
         self.__acquisition_item_done_trigger_script = acquisition_item_done_trigger_script
 
@@ -218,7 +218,7 @@ class CreateItemMasterRequest(Gs2BasicRequest):
         :param consume_item_trigger_script: アイテム消費時 に実行されるGS2-Script
         :type consume_item_trigger_script: unicode
         """
-        if consume_item_trigger_script and not (isinstance(consume_item_trigger_script, str) or isinstance(consume_item_trigger_script, unicode)):
+        if consume_item_trigger_script is not None and not (isinstance(consume_item_trigger_script, str) or isinstance(consume_item_trigger_script, unicode)):
             raise TypeError(type(consume_item_trigger_script))
         self.__consume_item_trigger_script = consume_item_trigger_script
 
@@ -247,7 +247,7 @@ class CreateItemMasterRequest(Gs2BasicRequest):
         :param consume_item_done_trigger_script: アイテム消費完了時 に実行されるGS2-Script
         :type consume_item_done_trigger_script: unicode
         """
-        if consume_item_done_trigger_script and not (isinstance(consume_item_done_trigger_script, str) or isinstance(consume_item_done_trigger_script, unicode)):
+        if consume_item_done_trigger_script is not None and not (isinstance(consume_item_done_trigger_script, str) or isinstance(consume_item_done_trigger_script, unicode)):
             raise TypeError(type(consume_item_done_trigger_script))
         self.__consume_item_done_trigger_script = consume_item_done_trigger_script
 

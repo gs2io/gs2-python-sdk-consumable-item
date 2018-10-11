@@ -46,6 +46,10 @@ class AcquisitionItemByUserIdRequest(Gs2BasicRequest):
             self.__count = None
         else:
             self.set_count(params['count'] if 'count' in params.keys() else None)
+        if params is None:
+            self.__expire_at = None
+        else:
+            self.set_expire_at(params['expireAt'] if 'expireAt' in params.keys() else None)
 
     def get_item_pool_name(self):
         """
@@ -61,7 +65,7 @@ class AcquisitionItemByUserIdRequest(Gs2BasicRequest):
         :param item_pool_name: 消費型アイテムプールの名前
         :type item_pool_name: unicode
         """
-        if item_pool_name and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
+        if item_pool_name is not None and not (isinstance(item_pool_name, str) or isinstance(item_pool_name, unicode)):
             raise TypeError(type(item_pool_name))
         self.__item_pool_name = item_pool_name
 
@@ -90,7 +94,7 @@ class AcquisitionItemByUserIdRequest(Gs2BasicRequest):
         :param item_name: 消費型アイテムの名前
         :type item_name: unicode
         """
-        if item_name and not (isinstance(item_name, str) or isinstance(item_name, unicode)):
+        if item_name is not None and not (isinstance(item_name, str) or isinstance(item_name, unicode)):
             raise TypeError(type(item_name))
         self.__item_name = item_name
 
@@ -119,7 +123,7 @@ class AcquisitionItemByUserIdRequest(Gs2BasicRequest):
         :param user_id: ユーザID
         :type user_id: unicode
         """
-        if user_id and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
+        if user_id is not None and not (isinstance(user_id, str) or isinstance(user_id, unicode)):
             raise TypeError(type(user_id))
         self.__user_id = user_id
 
@@ -148,7 +152,7 @@ class AcquisitionItemByUserIdRequest(Gs2BasicRequest):
         :param count: 入手数量
         :type count: int
         """
-        if count and not isinstance(count, int):
+        if count is not None and not isinstance(count, int):
             raise TypeError(type(count))
         self.__count = count
 
@@ -161,4 +165,33 @@ class AcquisitionItemByUserIdRequest(Gs2BasicRequest):
         :rtype: AcquisitionItemByUserIdRequest
         """
         self.set_count(count)
+        return self
+
+    def get_expire_at(self):
+        """
+        有効期限(エポック秒)を取得
+        :return: 有効期限(エポック秒)
+        :rtype: int
+        """
+        return self.__expire_at
+
+    def set_expire_at(self, expire_at):
+        """
+        有効期限(エポック秒)を設定
+        :param expire_at: 有効期限(エポック秒)
+        :type expire_at: int
+        """
+        if expire_at is not None and not isinstance(expire_at, int):
+            raise TypeError(type(expire_at))
+        self.__expire_at = expire_at
+
+    def with_expire_at(self, expire_at):
+        """
+        有効期限(エポック秒)を設定
+        :param expire_at: 有効期限(エポック秒)
+        :type expire_at: int
+        :return: this
+        :rtype: AcquisitionItemByUserIdRequest
+        """
+        self.set_expire_at(expire_at)
         return self
